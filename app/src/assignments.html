@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignments - SkillSync</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex">
+    <!-- Sidebar -->
+    <div class="w-64 bg-gray-900 border-r border-gray-800 flex flex-col">
+        <!-- Logo -->
+        <div class="p-6 border-b border-gray-800">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-code text-white text-sm"></i>
+                </div>
+                <span class="text-xl font-bold text-purple-400">SkillSync</span>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex-1 p-4 space-y-1">
+            <a href="dashboard.html" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition-colors" data-page="dashboard">
+                <i class="fas fa-th-large w-5"></i>
+                <span>Dashboard</span>
+            </a>
+            <a href="profile.html" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition-colors" data-page="profile">
+                <i class="fas fa-user w-5"></i>
+                <span>Profile</span>
+            </a>
+            <a href="chat.html" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition-colors" data-page="chat">
+                <i class="fas fa-comments w-5"></i>
+                <span>Chat</span>
+            </a>
+            <a href="assignments.html" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg bg-purple-600/20 text-purple-400 border border-purple-500/30" data-page="assignments">
+                <i class="fas fa-tasks w-5"></i>
+                <span>Assignments</span>
+            </a>
+            <a href="mentorship.html" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition-colors" data-page="mentorship">
+                <i class="fas fa-handshake w-5"></i>
+                <span>Mentorship</span>
+            </a>
+            <a href="educonnect.html" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition-colors" data-page="educonnect">
+                <i class="fas fa-graduation-cap w-5"></i>
+                <span>EduConnect</span>
+            </a>
+        </nav>
+
+        <!-- User & Settings -->
+        <div class="p-4 border-t border-gray-800">
+            <a href="#" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">
+                <i class="fas fa-cog w-5"></i>
+                <span>Settings</span>
+            </a>
+            <button onclick="handleLogout()" class="w-full flex items-center space-x-3 px-4 py-3 rounded-lg text-red-400 hover:text-white hover:bg-red-900/20 transition-colors text-left">
+                <i class="fas fa-sign-out-alt w-5"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col overflow-hidden">
+        <!-- Header -->
+        <header class="bg-gray-900/50 border-b border-gray-800 p-6">
+            <div class="flex items-center justify-between">
+                <h1 class="text-2xl font-bold">DSA Assignments</h1>
+                <div class="relative">
+                    <input type="text" placeholder="Search assignments..." class="bg-gray-800 text-white rounded-lg pl-10 pr-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                    <i class="fas fa-search absolute left-3 top-3 text-gray-400"></i>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6 overflow-y-auto">
+            <!-- Assignment Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Assignment 1 -->
+                <div class="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6 hover:border-purple-500/30 transition-colors">
+                    <div class="flex items-start justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-purple-400">Two Sum</h3>
+                        <span class="px-2 py-1 text-xs rounded-full bg-green-900/50 text-green-400">Easy</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4">Given an array of integers, return indices of the two numbers such that they add up to a specific target.</p>
+                    <div class="flex items-center justify-between text-sm text-gray-400">
+                        <span>DSA • Arrays</span>
+                        <button class="text-purple-400 hover:text-purple-300">Start →</button>
+                    </div>
+                </div>
+
+                <!-- Assignment 2 -->
+                <div class="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6 hover:border-purple-500/30 transition-colors">
+                    <div class="flex items-start justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-purple-400">Reverse Linked List</h3>
+                        <span class="px-2 py-1 text-xs rounded-full bg-yellow-900/50 text-yellow-400">Medium</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4">Reverse a singly linked list and return the head of the reversed list.</p>
+                    <div class="flex items-center justify-between text-sm text-gray-400">
+                        <span>DSA • Linked Lists</span>
+                        <button class="text-purple-400 hover:text-purple-300">Start →</button>
+                    </div>
+                </div>
+
+                <!-- Assignment 3 -->
+                <div class="bg-gray-800/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6 hover:border-purple-500/30 transition-colors">
+                    <div class="flex items-start justify-between mb-4">
+                        <h3 class="text-lg font-semibold text-purple-400">Binary Tree Traversal</h3>
+                        <span class="px-2 py-1 text-xs rounded-full bg-red-900/50 text-red-400">Hard</span>
+                    </div>
+                    <p class="text-gray-400 text-sm mb-4">Implement inorder, preorder, and postorder traversal of a binary tree.</p>
+                    <div class="flex items-center justify-between text-sm text-gray-400">
+                        <span>DSA • Trees</span>
+                        <button class="text-purple-400 hover:text-purple-300">Start →</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="nav-script.js"></script>
+    <script>
+        // Handle logout
+        function handleLogout() {
+            if (confirm('Are you sure you want to logout?')) {
+                const auth = new AuthManager();
+                auth.logout();
+            }
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            const auth = new AuthManager();
+            if (!auth.isAuthenticated()) {
+                window.location.href = 'login.html';
+            }
+
+            // Initialize navigation
+            const navManager = new NavigationManager();
+        });
+    </script>
+</body>
+</html>

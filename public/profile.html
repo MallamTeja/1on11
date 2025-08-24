@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - SkillSync</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex">
+    <!-- Vertical Left Sidebar -->
+    <div class="w-64 bg-gray-800 border-r border-gray-700 flex flex-col fixed h-full z-10">
+        <!-- Logo -->
+        <div class="p-6 border-b border-gray-700">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-graduation-cap text-white text-lg"></i>
+                </div>
+                <span class="text-xl font-bold text-white">SkillSync</span>
+            </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="flex-1 p-4">
+            <ul class="space-y-2">
+                <li>
+                    <a href="dashboard.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-th-large w-5 text-center"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="assignments.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-tasks w-5 text-center"></i>
+                        <span>Assignments</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="mentorship.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-user-graduate w-5 text-center"></i>
+                        <span>Mentorship</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="chat.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-comments w-5 text-center"></i>
+                        <span>Chat</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="profile.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-blue-600/20 text-blue-400 border border-blue-500/30 transition-colors">
+                        <i class="fas fa-user w-5 text-center"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="educonnect.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-users w-5 text-center"></i>
+                        <span>EduConnect</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/search" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-search w-5 text-center"></i>
+                        <span>Search</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Bottom Actions -->
+        <div class="p-4 border-t border-gray-700 space-y-2">
+            <button onclick="handleLogout()" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-red-400 hover:text-red-300 hover:bg-red-900/20 transition-colors w-full text-left">
+                <i class="fas fa-sign-out-alt w-5 text-center"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="ml-64 flex-1 min-h-screen">
+        <!-- Top Bar -->
+        <header class="bg-gray-900/50 border-b border-gray-700 p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-white">Profile</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <input type="text" placeholder="Search for mentors, challenges, or users..." 
+                               class="w-96 px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <i class="fas fa-search absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                    <button class="p-2 text-gray-400 hover:text-white transition-colors">
+                        <i class="fas fa-bell text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Toast Container -->
+        <div id="toastContainer" class="fixed top-4 right-4 z-50 space-y-2"></div>
+        
+        <!-- Profile Content -->
+        <main class="flex-1 relative overflow-hidden">
+            <!-- Network Background -->
+            <div class="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-blue-900/20 to-purple-800/30">
+                <canvas id="networkCanvas" class="w-full h-full"></canvas>
+            </div>
+
+            <!-- Profile Content Overlay -->
+            <div class="relative z-10 p-6">
+                <!-- Profile Header -->
+                <div class="mb-8">
+                    <div class="flex items-start space-x-6">
+                        <!-- Avatar -->
+                        <div class="relative">
+                            <div class="w-32 h-32 bg-gradient-to-br from-pink-400 to-purple-600 rounded-full flex items-center justify-center text-4xl font-bold">
+                                NC
+                            </div>
+                            <div class="absolute bottom-2 right-2 w-6 h-6 bg-green-500 rounded-full border-4 border-black"></div>
+                        </div>
+
+                        <!-- User Info -->
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between mb-4">
+                                <div>
+                                    <h2 class="text-4xl font-bold text-white mb-2" id="userName">Neo Coder</h2>
+                                    <div class="flex items-center space-x-4 mb-3">
+                                        <span class="bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-medium" id="userRole">Mentor</span>
+                                        <span class="text-gray-400">Fullstack Developer</span>
+                                    </div>
+                                </div>
+                                <button onclick="openEditModal()" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-medium transition-colors">
+                                    Edit Profile
+                                </button>
+                            </div>
+                            <p class="text-gray-300 text-lg leading-relaxed max-w-2xl" id="userBio">
+                                Passionate about crafting scalable web applications and solving complex algorithmic challenges. Always learning new technologies and eager to collaborate on innovative projects.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Skills & Technologies -->
+                    <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-2xl font-bold text-white">Skills & Technologies</h3>
+                            <button id="editSkillsBtn" class="text-purple-400 hover:text-purple-300 transition-colors">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                        </div>
+                        <div id="skillsView" class="space-y-4">
+                            <!-- Programming Languages -->
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-400 mb-3">Programming Languages</h4>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm">React</span>
+                                    <span class="bg-yellow-600 text-white px-3 py-1 rounded-full text-sm">TypeScript</span>
+                                    <span class="bg-green-600 text-white px-3 py-1 rounded-full text-sm">Node.js</span>
+                                    <span class="bg-pink-600 text-white px-3 py-1 rounded-full text-sm">GraphQL</span>
+                                    <span class="bg-blue-500 text-white px-3 py-1 rounded-full text-sm">Tailwind CSS</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Tools & Frameworks -->
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-400 mb-3">Tools & Frameworks</h4>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-orange-600 text-white px-3 py-1 rounded-full text-sm">AWS</span>
+                                    <span class="bg-purple-600 text-white px-3 py-1 rounded-full text-sm">Figma</span>
+                                    <span class="bg-red-600 text-white px-3 py-1 rounded-full text-sm">Problem Solving</span>
+                                    <span class="bg-indigo-600 text-white px-3 py-1 rounded-full text-sm">System Design</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Certifications -->
+                    <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-2xl font-bold text-white">Certifications</h3>
+                            <button id="editCertsBtn" class="text-purple-400 hover:text-purple-300 transition-colors">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                        </div>
+                        <div id="certsView" class="space-y-4">
+                            <!-- Algorithm Master -->
+                            <div class="flex items-center space-x-4 p-3 bg-gray-700/50 rounded-lg">
+                                <div class="w-12 h-12 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-trophy text-white"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-semibold text-white">Algorithm Master</h4>
+                                    <p class="text-sm text-gray-400">Solved 100+ Hard Challenges</p>
+                                </div>
+                            </div>
+
+                            <!-- Open Source Contributor -->
+                            <div class="flex items-center space-x-4 p-3 bg-gray-700/50 rounded-lg">
+                                <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-code-branch text-white"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-semibold text-white">Open Source Contributor</h4>
+                                    <p class="text-sm text-gray-400">Contributed to 5+ major projects</p>
+                                </div>
+                            </div>
+
+                            <!-- Community Helper -->
+                            <div class="flex items-center space-x-4 p-3 bg-gray-700/50 rounded-lg">
+                                <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-hands-helping text-white"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-semibold text-white">Community Helper</h4>
+                                    <p class="text-sm text-gray-400">Answered 500+ forum questions</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Projects Portfolio -->
+                <div class="mt-8">
+                    <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-xl p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-2xl font-bold text-white">Projects Portfolio</h3>
+                            <button class="text-purple-400 hover:text-purple-300 transition-colors">
+                                <i class="fas fa-plus"></i> Add Project
+                            </button>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                            <!-- Project 1: AI Study Assistant -->
+                            <div class="bg-gray-800/50 border border-gray-600 rounded-lg p-5 hover:border-purple-500/50 transition-colors">
+                                <div class="flex items-start justify-between mb-3">
+                                    <div class="flex items-center space-x-3">
+                                        <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                                            <i class="fas fa-robot text-white"></i>
+                                        </div>
+                                        <div>
+                                            <h4 class="font-semibold text-white">AI Study Assistant</h4>
+                                            <p class="text-sm text-gray-400">Machine Learning • Python</p>
+                                        </div>
+                                    </div>
+                                    <span class="bg-green-600/20 text-green-400 px-2 py-1 rounded text-xs">Completed</span>
+                                </div>
+                                <p class="text-gray-300 text-sm mb-4">
+                                    Built an intelligent tutoring system using NLP to help students with personalized learning paths and automated question answering.
+                                </p>
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="bg-blue-600/20 text-blue-400 px-2 py-1 rounded text-xs">TensorFlow</span>
+                                    <span class="bg-green-600/20 text-green-400 px-2 py-1 rounded text-xs">Flask</span>
+                                    <span class="bg-yellow-600/20 text-yellow-400 px-2 py-1 rounded text-xs">OpenAI API</span>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <div class="flex items-center space-x-4 text-sm text-gray-400">
+                                        <span><i class="fas fa-star text-yellow-400"></i> 4.8/5</span>
+                                        <span><i class="fas fa-eye"></i> 1.2k views</span>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="text-purple-400 hover:text-purple-300 transition-colors">
+                                            <i class="fas fa-external-link-alt"></i>
+                                        </button>
+                                        <button class="text-purple-400 hover:text-purple-300 transition-colors">
+                                            <i class="fab fa-github"></i>
+                                        </button>
+                                    <
