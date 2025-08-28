@@ -1,6 +1,9 @@
 import express, { Request, Response } from 'express';
 import cors, { CorsOptions } from 'cors';
 import './config'; // loads environment variables
+import { searchWithSerper } from './serper-service';
+import { searchWithGemini } from './gemini-service';
+import type { SearchResult } from './types';
 
 const app = express();
 
@@ -48,6 +51,131 @@ app.get('/', (_req: Request, res: Response) => {
 
 app.get('/api/health', (_req: Request, res: Response) => {
   res.json({ status: 'ok' });
+});
+
+// Resource Finder API
+// Example: /api/resources?q=java%20loops&type=all&difficulty=all&indianOnly=true
+app.get('/api/resources', async (req: Request, res: Response) => {
+  const q = String(req.query.q || '').trim();
+  const type = String(req.query.type || 'all').toLowerCase();
+  const difficulty = String(req.query.difficulty || 'all').toLowerCase();
+  const indianOnly = String(req.query.indianOnly || 'true').toLowerCase() === 'true';
+
+  if (!q) return res.status(400).json({ error: 'Missing required query parameter: q' });
+
+  const started = Date.now();
+  try {
+    const serperResults = await searchWithSerper(q, type === 'all' ? undefined : type, difficulty);
+
+    // Try Gemini enrichment (best-effort, ignored on failure)
+    let mappedGemini: SearchResult[] = [];
+    try {
+      const gemini = await searchWithGemini(q);
+      mappedGemini = (gemini || []).map((g) => {
+        // map Gemini result types to our SearchResult type
+        let mappedType: SearchResult['type'] = 'article';
+        const t = (g.type || '').toLowerCase();
+        if (t.includes('video')) mappedType = 'youtube';
+        if (t.includes('paper') || g.fileType === 'PDF') mappedType = 'pdf';
+        return {
+          id: g.id,
+          title: g.title,
+          summary: g.summary,
+          source: g.source,
+          url: g.url,
+          type: mappedType,
+          downloadUrl: g.downloadUrl,
+          fileType: g.fileType,
+        } as SearchResult;
+      });
+    } catch (e) {
+      console.warn('Gemini enrichment failed:', (e as Error).message);
+    }
+
+    // Merge and deduplicate by URL/title
+    const merged: SearchResult[] = [...serperResults, ...mappedGemini];
+    const seen = new Set<string>();
+    const dedup = merged.filter((r) => {
+      const key = (r.url || r.title || '').toLowerCase();
+      if (!key) return false;
+      if (seen.has(key)) return false;
+      seen.add(key);
+      return true;
+    });
+
+    const isIndianSource = (r: SearchResult) => {
+      if (!r.url) return false;
+      try {
+        const host = new URL(r.url).hostname.toLowerCase();
+        return (
+          host.endsWith('.ac.in') ||
+          host.endsWith('.edu.in') ||
+          host.endsWith('.gov.in') ||
+          host.includes('nptel') ||
+          host.includes('swayam') ||
+          host.includes('iit') ||
+          host.includes('iisc') ||
+          host.includes('bits') ||
+          host.includes('ugc.ac.in') ||
+          host.includes('isro') ||
+          host.includes('rbi.org.in') ||
+          host.includes('geeksforgeeks')
+        );
+      } catch {
+        return false;
+      }
+    };
+
+    const filtered = indianOnly ? dedup.filter(isIndianSource) : dedup;
+
+    const isCourse = (r: SearchResult) => {
+      if (!r.url) return false;
+      try {
+        const host = new URL(r.url).hostname.toLowerCase();
+        return (
+          r.type === 'article' && (
+            host.includes('nptel') || host.includes('swayam') || host.includes('coursera') || host.includes('udemy') ||
+            host.includes('iit') || host.endsWith('.edu.in') || host.endsWith('.ac.in')
+          )
+        );
+      } catch { return false; }
+    };
+
+    const isRepo = (r: SearchResult) => {
+      if (!r.url) return false;
+      try {
+        const host = new URL(r.url).hostname.toLowerCase();
+        return host.includes('github.com') || host.includes('gitlab.com') || host.includes('bitbucket.org');
+      } catch { return false; }
+    };
+
+    const articles = filtered.filter((r) => r.type === 'article' && !isCourse(r) && !isRepo(r));
+    const pdfs = filtered.filter((r) => r.type === 'pdf');
+    const videos = filtered.filter((r) => r.type === 'youtube');
+    const images = filtered.filter((r) => r.type === 'image');
+    const qa = filtered.filter((r) => r.type === 'faq');
+    const courses = filtered.filter(isCourse);
+    const repos = filtered.filter(isRepo);
+
+    const all = [...courses, ...articles, ...pdfs, ...videos, ...repos, ...qa, ...images];
+
+    res.json({
+      sections: { all, articles, pdfs, videos, images, qa, courses, repos },
+      totals: {
+        all: all.length,
+        articles: articles.length,
+        pdfs: pdfs.length,
+        videos: videos.length,
+        images: images.length,
+        qa: qa.length,
+        courses: courses.length,
+        repos: repos.length,
+      },
+      latencyMs: Date.now() - started,
+    });
+  } catch (err: any) {
+    res.status(500).json({ error: err.message || 'Search failed' });
+  }
 });
 
 const PORT = Number(process.env.PORT) || 4000;

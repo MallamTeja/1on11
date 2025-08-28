@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en-IN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SkillSync – Learn Faster. Connect Smarter. Mentor Freely.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="icon" type="image/x-icon" href="../favicon.ico" />
+  <meta name="description" content="India-first academic mentorship platform with AI resource finder, peer skill exchange, and paid expert sessions in ₹, time in IST." />
+  <style>
+    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+  </style>
+</head>
+<body class="min-h-screen text-[#1F2937] bg-gradient-to-br from-[#0D1321] via-[#0D1321] to-[#155E75]">
+  <!-- Tints & accents background layer -->
+  <div class="fixed inset-0 -z-10 pointer-events-none" aria-hidden="true">
+    <div class="absolute inset-0 bg-[#FAF7F2]/30 mix-blend-soft-light"></div>
+    <div class="absolute -top-24 -left-24 w-[40rem] h-[40rem] rounded-full bg-[#F4A300]/10 blur-3xl"></div>
+    <div class="absolute -bottom-24 -right-24 w-[36rem] h-[36rem] rounded-full bg-[#155E75]/20 blur-3xl"></div>
+  </div>
+
+  <!-- Navigation -->
+  <header class="sticky top-0 z-40">
+    <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mt-4 mb-4 flex items-center justify-between rounded-2xl border border-white/20 bg-white/60 backdrop-blur-xl shadow-[0_8px_24px_rgba(13,19,33,0.12)]">
+        <div class="flex items-center gap-3 px-4 py-3">
+          <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-[#F4A300] text-[#0D1321] shadow" aria-hidden="true">
+            <i class="fa-solid fa-graduation-cap text-lg"></i>
+          </div>
+          <span class="text-lg sm:text-xl font-bold tracking-tight text-[#0D1321]">SkillSync</span>
+        </div>
+        <div class="hidden md:flex items-center gap-2 text-sm font-medium">
+          <a href="./dashboard.html" class="px-3 py-2 rounded-xl text-[#155E75] hover:bg-[#155E75]/10">Dashboard</a>
+          <a href="./search.html" class="px-3 py-2 rounded-xl text-[#155E75] hover:bg-[#155E75]/10">Resource Finder</a>
+          <a href="#network" class="px-3 py-2 rounded-xl text-[#155E75] hover:bg-[#155E75]/10">Network</a>
+        </div>
+        <div class="flex items-center gap-2 px-4 py-2">
+          <a href="./login.html" class="px-4 py-2 rounded-xl text-[#155E75] hover:bg-[#155E75]/10">Login</a>
+          <a href="./signup.html" class="px-4 py-2 rounded-2xl bg-[#F4A300] text-[#0D1321] hover:bg-[#DC9200] font-semibold shadow-sm">Join Free</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
+    <div class="mx-auto max-w-3xl text-center">
+      <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white">
+        Learn Faster. Connect Smarter. Mentor Freely.
+      </h1>
+      <p class="mt-6 text-lg sm:text-xl text-white/80">
+        India’s platform for AI-powered learning, peer skill exchange, and expert mentorship. Prices in ₹, time in IST.
+      </p>
+      <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <a href="./signup.html" class="inline-flex items-center justify-center rounded-2xl bg-[#F4A300] px-8 py-3 text-base sm:text-lg font-semibold text-[#0D1321] shadow hover:bg-[#DC9200]">
+          Join as a Student
+        </a>
+        <a href="./dashboard.html" class="inline-flex items-center justify-center rounded-2xl border border-white/30 bg-white/20 px-8 py-3 text-base sm:text-lg font-semibold text-white hover:bg-white/30">
+          Explore Mentors
+        </a>
+      </div>
+
+      <!-- Trust bar -->
+      <div class="mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-white/80 text-sm">
+        <span>Trusted by students from</span>
+        <span class="inline-flex items-center gap-2 rounded-xl bg-white/10 px-3 py-1"><i class="fa-solid fa-building-columns"></i> IIT Delhi</span>
+        <span class="inline-flex items-center gap-2 rounded-xl bg-white/10 px-3 py-1"><i class="fa-solid fa-building-columns"></i> NIT Trichy</span>
+        <span class="inline-flex items-center gap-2 rounded-xl bg-white/10 px-3 py-1"><i class="fa-solid fa-building-columns"></i> BITS Pilani</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features -->
+  <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-8">
+    <div class="grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-4">
+      <div class="rounded-2xl border border-white/25 bg-white/60 backdrop-blur-xl p-6 shadow-[0_8px_24px_rgba(13,19,33,0.12)] hover:translate-y-[-2px] hover:shadow-[0_10px_28px_rgba(13,19,33,0.16)] transition">
+        <div class="h-12 w-12 rounded-xl bg-[#155E75]/15 text-[#155E75] flex items-center justify-center mb-4"><i class="fa-solid fa-people-arrows"></i></div>
+        <h3 class="text-lg font-semibold text-[#0D1321]">Peer Skill Exchange</h3>
+        <p class="mt-2 text-sm text-[#64748B]">Swap strengths with peers—teach DSA, learn ML. Build credibility and connections.</p>
+      </div>
+      <div class="rounded-2xl border border-white/25 bg-white/60 backdrop-blur-xl p-6 shadow-[0_8px_24px_rgba(13,19,33,0.12)] hover:translate-y-[-2px] hover:shadow-[0_10px_28px_rgba(13,19,33,0.16)] transition">
+        <div class="h-12 w-12 rounded-xl bg-[#155E75]/15 text-[#155E75] flex items-center justify-center mb-4"><i class="fa-solid fa-user-tie"></i></div>
+        <h3 class="text-lg font-semibold text-[#0D1321]">Paid Expert Mentorship</h3>
+        <p class="mt-2 text-sm text-[#64748B]">Book sessions with verified mentors. Typical rates start at ₹499/hr via UPI.</p>
+      </div>
+      <div class="rounded-2xl border border-white/25 bg-white/60 backdrop-blur-xl p-6 shadow-[0_8px_24px_rgba(13,19,33,0.12)] hover:translate-y-[-2px] hover:shadow-[0_10px_28px_rgba(13,19,33,0.16)] transition">
+        <div class="h-12 w-12 rounded-xl bg-[#155E75]/15 text-[#155E75] flex items-center justify-center mb-4"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+        <h3 class="text-lg font-semibold text-[#0D1321]">AI Academic Search</h3>
+        <p class="mt-2 text-sm text-[#64748B]">Find articles, PDFs, and videos in one place. Try “java loops” in Resource Finder.</p>
+      </div>
+      <div class="rounded-2xl border border-white/25 bg-white/60 backdrop-blur-xl p-6 shadow-[0_8px_24px_rgba(13,19,33,0.12)] hover:translate-y-[-2px] hover:shadow-[0_10px_28px_rgba(13,19,33,0.16)] transition">
+        <div class="h-12 w-12 rounded-xl bg-[#155E75]/15 text-[#155E75] flex items-center justify-center mb-4"><i class="fa-solid fa-award"></i></div>
+        <h3 class="text-lg font-semibold text-[#0D1321]">Assignments & Badges</h3>
+        <p class="mt-2 text-sm text-[#64748B]">Solve tasks like “5 DSA problems this week” and unlock badges to become a mentor.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+    <div class="rounded-2xl border border-white/25 bg-white/60 backdrop-blur-xl p-6 md:p-8 shadow-[0_8px_24px_rgba(13,19,33,0.12)]">
+      <h2 class="text-2xl md:text-3xl font-bold text-[#0D1321] text-center">How it works</h2>
+      <div class="mt-8 grid gap-6 md:grid-cols-4">
+        <div class="text-center">
+          <div class="mx-auto h-10 w-10 rounded-full bg-[#F4A300] text-[#0D1321] font-bold flex items-center justify-center">1</div>
+          <p class="mt-3 text-sm text-[#1F2937] font-semibold">Create Profile</p>
+          <p class="mt-1 text-xs text-[#64748B]">Add IIT/NIT/BITS education, skills, and goals.</p>
+        </div>
+        <div class="text-center">
+          <div class="mx-auto h-10 w-10 rounded-full bg-[#F4A300] text-[#0D1321] font-bold flex items-center justify-center">2</div>
+          <p class="mt-3 text-sm text-[#1F2937] font-semibold">Discover</p>
+          <p class="mt-1 text-xs text-[#64748B]">AI-curated resources & suggested connections.</p>
+        </div>
+        <div class="text-center">
+          <div class="mx-auto h-10 w-10 rounded-full bg-[#F4A300] text-[#0D1321] font-bold flex items-center justify-center">3</div>
+          <p class="mt-3 text-sm text-[#1F2937] font-semibold">Connect & Book</p>
+          <p class="mt-1 text-xs text-[#64748B]">Request peer sessions or book mentors (₹/hr).</p>
+        </div>
+        <div class="text-center">
+          <div class="mx-auto h-10 w-10 rounded-full bg-[#F4A300] text-[#0D1321] font-bold flex items-center justify-center">4</div>
+          <p class="mt-3 text-sm text-[#1F2937] font-semibold">Earn Badges</p>
+          <p class="mt-1 text-xs text-[#64748B]">Complete assignments to unlock mentor status.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 pb-14">
+    <h2 class="text-2xl md:text-3xl font-bold text-white text-center">What learners say</h2>
+    <div class="mt-8 grid gap-6 md:grid-cols-3">
+      <div class="rounded-2xl border border-white/25 bg-white/60 backdrop-blur-xl p-6 shadow-[0_8px_24px_rgba(13,19,33,0.12)]">
+        <div class="flex items-center gap-3">
+          <img src="https://i.pravatar.cc/80?img=15" alt="Rohan Sharma avatar" class="h-12 w-12 rounded-full object-cover" />
+          <div>
+            <p class="font-semibold text-[#0D1321]">Rohan Sharma</p>
+            <p class="text-xs text-[#64748B]">B.Tech, Hyderabad</p>
+          </div>
+        </div>
+        <p class="mt-4 text-sm text-[#1F2937]">“With AI search and mentor sessions at ₹699/hr, I solved 10 DSA mediums per week.”</p>
+        <div class="mt-3 text-[#F4A300]" aria-label="4.5 out of 5 stars">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star-half-stroke"></i>
+        </div>
+      </div>
+      <div class="rounded-2xl border border-white/25 bg-white/60 backdrop-blur-xl p-6 shadow-[0_8px_24px_rgba(13,19,33,0.12)]">
+        <div class="flex items-center gap-3">
+          <img src="https://i.pravatar.cc/80?img=49" alt="Aisha Khan avatar" class="h-12 w-12 rounded-full object-cover" />
+          <div>
+            <p class="font-semibold text-[#0D1321]">Aisha Khan</p>
+            <p class="text-xs text-[#64748B]">UPSC Aspirant, Lucknow</p>
+          </div>
+        </div>
+        <p class="mt-4 text-sm text-[#1F2937]">“Resource Finder grouped PDFs and videos perfectly. My study plan finally makes sense.”</p>
+        <div class="mt-3 text-[#F4A300]" aria-label="4 out of 5 stars">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-regular fa-star"></i>
+        </div>
+      </div>
+      <div class="rounded-2xl border border-white/25 bg-white/60 backdrop-blur-xl p-6 shadow-[0_8px_24px_rgba(13,19,33,0.12)]">
+        <div class="flex items-center gap-3">
+          <img src="https://i.pravatar.cc/80?img=67" alt="Ananya Iyer avatar" class="h-12 w-12 rounded-full object-cover" />
+          <div>
+            <p class="font-semibold text-[#0D1321]">Ananya Iyer</p>
+            <p class="text-xs text-[#64748B]">IIT Delhi</p>
+          </div>
+        </div>
+        <p class="mt-4 text-sm text-[#1F2937]">“Booked a mentor for ML basics at ₹599/hr. Clean call room and actionable feedback.”</p>
+        <div class="mt-3 text-[#F4A300]" aria-label="5 out of 5 stars">
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+          <i class="fa-solid fa-star"></i>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="mt-6 border-t border-white/20 bg-white/20 backdrop-blur-xl">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 text-white">
+      <div class="grid gap-8 md:grid-cols-4">
+        <div>
+          <div class="flex items-center gap-3">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-[#F4A300] text-[#0D1321] shadow" aria-hidden="true">
+              <i class="fa-solid fa-graduation-cap"></i>
+            </div>
+            <span class="text-xl font-bold">SkillSync</span>
+          </div>
+          <p class="mt-4 text-sm text-white/80">India-first mentorship and learning platform. Prices in ₹, time in IST.</p>
+        </div>
+        <div>
+          <p class="font-semibold mb-3">Product</p>
+          <ul class="space-y-2 text-white/80">
+            <li><a href="./dashboard.html" class="hover:underline">Dashboard</a></li>
+            <li><a href="./search.html" class="hover:underline">Resource Finder</a></li>
+            <li><a href="#" class="hover:underline">Bookings</a></li>
+            <li><a href="#" class="hover:underline">Assignments & Badges</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-semibold mb-3">Company</p>
+          <ul class="space-y-2 text-white/80">
+            <li><a href="#" class="hover:underline">About</a></li>
+            <li><a href="#" class="hover:underline">Careers</a></li>
+            <li><a href="#" class="hover:underline">Blog</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-semibold mb-3">Legal</p>
+          <ul class="space-y-2 text-white/80">
+            <li><a href="#" class="hover:underline">Terms</a></li>
+            <li><a href="#" class="hover:underline">Privacy</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="mt-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-white/70">
+        <p>© <span id="year"></span> SkillSync. All rights reserved.</p>
+        <p>Made for students across India — IITs, NITs, BITS, and beyond.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

@@ -242,7 +242,8 @@ export async function searchWithSerper(query: string, type?: string, difficulty?
         },
         body: JSON.stringify({
           q: searchQuery,
-          gl: 'us',
+          // India-first geolocation & language
+          gl: 'in',
           hl: 'en',
         }),
       });
