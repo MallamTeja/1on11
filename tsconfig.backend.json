@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "es2020",
+    "module": "commonjs",
+    "outDir": "./dist/backend",
+    "rootDir": "./backend/src",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    "paths": {
+      "@backend/*": ["./backend/src/*"]
+    }
+  },
+  "include": ["backend/src/**/*"],
+  "exclude": ["node_modules", "**/*.test.ts"]
+}
