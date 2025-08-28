@@ -1,1 +1,26 @@
-{ name: simple-js-app, version: 1.0.0 }
+{
+  "name": "skillsync-education-platform",
+  "version": "1.0.0",
+  "description": "SkillSync Education Platform - HTML, CSS, JavaScript application",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx http-server . -p 3000 -o",
+    "serve": "npx http-server . -p 8080 -o",
+    "dev": "npx live-server --port=3000 --open=index.html"
+  },
+  "keywords": [
+    "education",
+    "learning",
+    "platform",
+    "html",
+    "css",
+    "javascript",
+    "tailwind"
+  ],
+  "author": "SkillSync Team",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1",
+    "live-server": "^1.2.2"
+  }
+}

@@ -1,42 +1,40 @@
-# ScholarSearch - AI-Powered Academic Search
+# SkillSync Education Platform
 
-ScholarSearch is a full-stack application with a Next.js frontend and Node.js backend that leverages Google's Gemini AI to provide intelligent academic search results. The application allows users to search for scholarly articles, research papers, and other academic resources.
+SkillSync is a modern education platform built with HTML, CSS, and JavaScript that provides an interactive learning experience for coding skills, mentorship, and collaborative study groups.
 
 ## Project Structure
 
 ```
 .
-├── frontend/              # Next.js frontend application
-│   ├── app/              # App router pages and layouts
-│   ├── components/       # Reusable UI components
-│   ├── lib/             # Frontend utilities and services
-│   └── public/          # Static assets
-├── backend/             # Backend services
-│   └── src/            # Backend source code
-│       ├── config.ts   # Configuration
-│       ├── gemini-service.ts  # Gemini AI integration
-│       └── serper-service.ts  # Search API integration
-├── package.json        # Project dependencies and scripts
-└── tsconfig*.json     # TypeScript configurations
+├── index.html          # Landing page
+├── login.html          # User login page
+├── signup.html         # User registration page
+├── dashboard.html      # User dashboard
+├── search.html         # Course browsing and search
+├── app.js             # Main JavaScript functionality
+├── styles.css         # Custom CSS styles and variables
+├── package.json       # Project dependencies and scripts
+└── backend/           # Backend services (Node.js)
 ```
 
 ## Features
 
-- AI-powered search using Google's Gemini API
-- Academic content discovery
-- Filter results by content type
-- Modern UI with dark/light mode support
-- Type-safe codebase with TypeScript
+- **Modern UI Design**: Beautiful gradient backgrounds with glassmorphism effects
+- **Responsive Layout**: Mobile-first design using Tailwind CSS
+- **User Authentication**: Login and signup functionality with form validation
+- **Interactive Dashboard**: Personal learning progress tracking
+- **Course Discovery**: Browse and search educational content
+- **Real-time Feedback**: Loading states and success/error notifications
+- **Local Storage**: Session management for user data
+- **Accessibility**: Proper ARIA labels and keyboard navigation
 
 ## Getting Started
 
 ### Prerequisites
 
-- Node.js 18.x or higher
+- Node.js 14.x or higher
 - npm or yarn
-- Google Gemini API key
-- Serper API key (for web search)
-- YouTube API key (optional, for video search)
+- Modern web browser
 
 ### Installation
 
@@ -45,69 +43,99 @@ ScholarSearch is a full-stack application with a Next.js frontend and Node.js ba
 
 ```bash
 npm install
-# or
-yarn
 ```
 
-3. Set up environment variables:
-   - Create `.env` file in the project root with the following variables:
-
-```
-# Frontend
-NEXT_PUBLIC_GEMINI_API_KEY=your_gemini_api_key_here
-NEXT_PUBLIC_SERPER_API_KEY=your_serper_api_key_here
-NEXT_PUBLIC_DEEPSEEK_API_KEY=your_deepseek_api_key_here
-
-# Backend
-GEMINI_API_KEY=your_gemini_api_key_here
-SERPER_API_KEY=your_serper_api_key_here
-YOUTUBE_API_KEY=your_youtube_api_key_here  # Optional
-```
-
-4. Run the development server:
+3. Start the development server:
 
 ```bash
-# Start both frontend and backend
-yarn dev
-
-# Or start them separately
-yarn dev:frontend  # Frontend only
-yarn dev:backend   # Backend only (in watch mode)
+npm start
 ```
 
-5. Open [http://localhost:3000](http://localhost:3000) in your browser
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
 
 ## Available Scripts
 
-- `yarn dev` - Start both frontend and backend in development mode
-- `yarn build` - Build both frontend and backend for production
-- `yarn start` - Start the production server
-- `yarn lint` - Run ESLint on the codebase
+- `npm start` - Start the development server on port 3000
+- `npm run serve` - Start the server on port 8080
+- `npm run dev` - Start with live-server for auto-reload
 
-## How to Get a Gemini API Key
+## Features Overview
 
-1. Go to [Google AI Studio](https://makersuite.google.com/app/apikey)
-2. Sign in with your Google account
-3. Create a new API key
-4. Copy the API key and add it to your `.env` file
-4. Copy the API key and add it to your `.env.local` file
+### Landing Page (index.html)
+- Hero section with call-to-action buttons
+- Feature highlights with icons
+- Responsive navigation
+- Modern gradient design
 
-## Usage
+### Authentication System
+- **Login Page**: Email/password authentication with remember me option
+- **Signup Page**: User registration with password confirmation
+- **Form Validation**: Client-side validation with error messages
+- **Session Management**: Local storage for user sessions
 
-1. Enter a search query in the search bar
-2. View the AI-generated search results
-3. Filter results by content type using the tabs
-4. Click on results to view the source or download content
+### Dashboard (dashboard.html)
+- **Progress Tracking**: Course completion statistics
+- **Learning Streak**: Daily learning streak counter
+- **Quick Actions**: Easy access to common features
+- **Recent Activity**: Timeline of learning activities
+- **Upcoming Events**: Scheduled workshops and study groups
+
+### Course Browser (search.html)
+- **Course Catalog**: Grid layout of available courses
+- **Search Functionality**: Real-time course search
+- **Filtering Options**: Filter by category, level, and duration
+- **Course Cards**: Detailed course information with ratings
 
 ## Technologies Used
 
-- Next.js
-- React
-- TypeScript
-- Tailwind CSS
-- Google Gemini AI
-- shadcn/ui components
+- **HTML5**: Semantic markup and accessibility
+- **CSS3**: Custom properties, flexbox, and grid
+- **JavaScript (ES6+)**: Modern JavaScript features
+- **Tailwind CSS**: Utility-first CSS framework via CDN
+- **Font Awesome**: Icon library for UI elements
+- **HTTP Server**: Local development server
+
+## Browser Support
+
+- Chrome 90+
+- Firefox 88+
+- Safari 14+
+- Edge 90+
+
+## Development
+
+The application uses vanilla JavaScript with modern ES6+ features:
+
+- **Modular Code**: Organized into reusable functions
+- **Event Handling**: Proper event delegation and cleanup
+- **Form Validation**: Client-side validation with user feedback
+- **Local Storage**: Persistent user sessions
+- **Responsive Design**: Mobile-first approach
+
+## Customization
+
+### Styling
+- Modify CSS variables in `styles.css` for theme customization
+- Update Tailwind configuration in HTML files
+- Add custom components in the CSS file
+
+### Functionality
+- Extend `app.js` with new features
+- Add new pages following the existing structure
+- Integrate with backend APIs as needed
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
 
 ## License
 
-This project is licensed under the MIT License.
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Support
+
+For support and questions, please open an issue in the repository or contact the development team.
