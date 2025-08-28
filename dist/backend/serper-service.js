@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.searchWithSerper = searchWithSerper;
+exports.searchWithSerper = void 0;
 const generative_ai_1 = require("@google/generative-ai");
 const config_1 = require("./config");
 function generateUniqueId() {
@@ -209,3 +209,4 @@ async function searchWithSerper(query, type, difficulty) {
         throw new Error('Failed to fetch search results from Serper');
     }
 }
+exports.searchWithSerper = searchWithSerper;

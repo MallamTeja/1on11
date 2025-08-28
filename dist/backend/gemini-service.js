@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.searchWithGemini = searchWithGemini;
+exports.searchWithGemini = void 0;
 const generative_ai_1 = require("@google/generative-ai");
 const config_1 = require("./config");
 const genAI = new generative_ai_1.GoogleGenerativeAI(config_1.config.gemini.apiKey);
@@ -45,3 +45,4 @@ You are an academic search assistant. For the query: "${query}", generate a JSON
         throw new Error('Failed to fetch results from Gemini');
     }
 }
+exports.searchWithGemini = searchWithGemini;
