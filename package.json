@@ -1,26 +1,47 @@
 {
-  "name": "skillsync-education-platform",
+  "name": "skillsync-react-platform",
   "version": "1.0.0",
-  "description": "SkillSync Education Platform - HTML, CSS, JavaScript application",
-  "main": "index.html",
+  "description": "SkillSync - Academic and Mentorship Platform for India",
+  "main": "src/index.js",
   "scripts": {
-    "start": "npx http-server . -p 3000 -o",
-    "serve": "npx http-server . -p 8080 -o",
-    "dev": "npx live-server --port=3000 --open=index.html"
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "serve": "npx serve -s build -l 3000"
   },
   "keywords": [
     "education",
-    "learning",
-    "platform",
-    "html",
-    "css",
-    "javascript",
-    "tailwind"
+    "mentorship",
+    "academic",
+    "india",
+    "react",
+    "platform"
   ],
   "author": "SkillSync Team",
   "license": "MIT",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.8.0",
+    "react-scripts": "5.0.1",
+    "framer-motion": "^10.0.0",
+    "lucide-react": "^0.263.0"
+  },
   "devDependencies": {
-    "http-server": "^14.1.1",
-    "live-server": "^1.2.2"
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
