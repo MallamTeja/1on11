@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - SkillSync Education Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        background: 'hsl(var(--background))',
+                        foreground: 'hsl(var(--foreground))',
+                        card: 'hsl(var(--card))',
+                        'card-foreground': 'hsl(var(--card-foreground))',
+                        popover: 'hsl(var(--popover))',
+                        'popover-foreground': 'hsl(var(--popover-foreground))',
+                        primary: 'hsl(var(--primary))',
+                        'primary-foreground': 'hsl(var(--primary-foreground))',
+                        secondary: 'hsl(var(--secondary))',
+                        'secondary-foreground': 'hsl(var(--secondary-foreground))',
+                        muted: 'hsl(var(--muted))',
+                        'muted-foreground': 'hsl(var(--muted-foreground))',
+                        accent: 'hsl(var(--accent))',
+                        'accent-foreground': 'hsl(var(--accent-foreground))',
+                        destructive: 'hsl(var(--destructive))',
+                        'destructive-foreground': 'hsl(var(--destructive-foreground))',
+                        border: 'hsl(var(--border))',
+                        input: 'hsl(var(--input))',
+                        ring: 'hsl(var(--ring))',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-blue-900 via-gray-900 to-black text-white">
+    <!-- Navigation -->
+    <nav class="bg-blue-900/50 backdrop-blur-sm border-b border-blue-800 p-4">
+        <div class="container mx-auto flex items-center justify-between">
+            <a href="index.html" class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-gradient-to-r from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-code text-white text-sm"></i>
+                </div>
+                <span class="text-xl font-bold text-blue-400">SkillSync</span>
+            </a>
+            
+            <div class="flex items-center space-x-4">
+                <span class="text-gray-300">Already have an account?</span>
+                <a href="login.html" class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition-colors">
+                    Sign In
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Signup Form -->
+    <div class="container mx-auto px-4 py-20 flex items-center justify-center">
+        <div class="w-full max-w-md">
+            <div class="text-center mb-8">
+                <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-user-plus text-white text-2xl"></i>
+                </div>
+                <h1 class="text-3xl font-bold mb-2">Join SkillSync</h1>
+                <p class="text-gray-400">Create your account and start learning</p>
+            </div>
+
+            <div class="bg-blue-900/20 backdrop-blur-sm border border-blue-800 rounded-xl p-6">
+                <div class="text-center mb-6">
+                    <h2 class="text-2xl font-semibold text-white mb-2">Create Account</h2>
+                    <p class="text-gray-400">Fill in your details to get started</p>
+                </div>
+
+                <form id="signupForm" class="space-y-6">
+                    <div class="form-group">
+                        <label for="name" class="form-label text-white">Full Name</label>
+                        <input
+                            id="name"
+                            name="name"
+                            type="text"
+                            placeholder="Enter your full name"
+                            required
+                            class="form-input w-full bg-gray-800/50 border-blue-700 text-white placeholder-gray-400 focus:border-blue-500"
+                        />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="form-label text-white">Email</label>
+                        <input
+                            id="email"
+                            name="email"
+                            type="email"
+                            placeholder="Enter your email"
+                            required
+                            class="form-input w-full bg-gray-800/50 border-blue-700 text-white placeholder-gray-400 focus:border-blue-500"
+                        />
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password" class="form-label text-white">Password</label>
+                        <input
+                            id="password"
+                            name="password"
+                            type="password"
+                            placeholder="Create a password"
+                            required
+                            class="form-input w-full bg-gray-800/50 border-blue-700 text-white placeholder-gray-400 focus:border-blue-500"
+                        />
+                        <p class="text-xs text-gray-400 mt-1">Password must be at least 6 characters long</p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirmPassword" class="form-label text-white">Confirm Password</label>
+                        <input
+                            id="confirmPassword"
+                            name="confirmPassword"
+                            type="password"
+                            placeholder="Confirm your password"
+                            required
+                            class="form-input w-full bg-gray-800/50 border-blue-700 text-white placeholder-gray-400 focus:border-blue-500"
+                        />
+                    </div>
+
+                    <div class="flex items-start space-x-2">
+                        <input
+                            type="checkbox"
+                            id="terms"
+                            name="terms"
+                            required
+                            class="w-4 h-4 text-blue-600 bg-gray-800 border-blue-700 rounded focus:ring-blue-500 mt-1"
+                        />
+                        <label for="terms" class="text-sm text-gray-300">
+                            I agree to the 
+                            <a href="terms.html" class="text-blue-400 hover:text-blue-300">Terms of Service</a>
+                            and 
+                            <a href="privacy.html" class="text-blue-400 hover:text-blue-300">Privacy Policy</a>
+                        </label>
+                    </div>
+
+                    <button 
+                        type="submit" 
+                        class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-medium transition-colors flex items-center justify-center"
+                    >
+                        <i class="fas fa-user-plus mr-2"></i>
+                        Create Account
+                    </button>
+                </form>
+
+                <div class="mt-6 text-center">
+                    <p class="text-gray-400">
+                        Already have an account?
+                        <a href="login.html" class="text-blue-400 hover:text-blue-300 font-medium ml-1">
+                            Sign in here
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
