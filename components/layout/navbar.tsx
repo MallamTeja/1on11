@@ -3,8 +3,8 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { BookOpen } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { ModeToggle } from '@/components/theme/mode-toggle';
+import { Button } from '../ui/button';
+import { ModeToggle } from '../theme/mode-toggle';
 
 const navItems = [
   { name: 'Home', path: '/' },

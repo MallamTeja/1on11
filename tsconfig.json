@@ -19,8 +19,9 @@
       }
     ],
     "paths": {
-      "@/*": ["./frontend/*"],
-      "@/backend/*": ["./backend/*"]
+      "@/*": ["./frontend/*", "./*"],
+      "@/backend/*": ["./backend/*"],
+      "@/components/*": ["./components/*"]
     }
   },
   "include": ["next-env.d.ts", "frontend/**/*.ts", "frontend/**/*.tsx", "backend/**/*.ts", ".next/types/**/*.ts"],
