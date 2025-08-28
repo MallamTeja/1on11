@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Assignments - SkillSync</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex">
+    <!-- Vertical Left Sidebar -->
+    <div class="w-64 bg-gray-800 border-r border-gray-700 flex flex-col fixed h-full z-10">
+        <!-- Logo -->
+        <div class="p-6 border-b border-gray-700">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-graduation-cap text-white text-lg"></i>
+                </div>
+                <span class="text-xl font-bold text-white">SkillSync</span>
+            </div>
+        </div>
+
+        <!-- Navigation Links -->
+        <nav class="flex-1 p-4">
+            <ul class="space-y-2">
+                <li>
+                    <a href="dashboard.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-th-large w-5 text-center"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="assignments.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg bg-blue-600/20 text-blue-400 border border-blue-500/30 transition-colors">
+                        <i class="fas fa-tasks w-5 text-center"></i>
+                        <span>Assignments</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="mentorship.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-user-graduate w-5 text-center"></i>
+                        <span>Mentorship</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="chat.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-comments w-5 text-center"></i>
+                        <span>Chat</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="profile.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-user w-5 text-center"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="educonnect.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-users w-5 text-center"></i>
+                        <span>EduConnect</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/search" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-gray-700 transition-colors">
+                        <i class="fas fa-search w-5 text-center"></i>
+                        <span>Search</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Bottom Actions -->
+        <div class="p-4 border-t border-gray-700 space-y-2">
+            <button onclick="handleLogout()" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-red-400 hover:text-red-300 hover:bg-red-900/20 transition-colors w-full text-left">
+                <i class="fas fa-sign-out-alt w-5 text-center"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="ml-64 flex-1 min-h-screen">
+        <!-- Top Header -->
+        <header class="bg-gray-800/50 border-b border-gray-700 p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-white mb-2">Assignments</h1>
+                    <p class="text-gray-400">Practice coding problems and track your progress</p>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <input type="text" placeholder="Search..." 
+                               class="w-80 px-4 py-2 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <i class="fas fa-search absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                    <button class="p-2 text-gray-400 hover:text-white transition-colors">
+                        <i class="fas fa-bell text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Assignments Content -->
+        <div class="p-6">
+            <!-- Header -->
+            <div class="mb-8">
+                <h1 class="text-3xl font-bold text-white mb-2">Assignments</h1>
+                <p class="text-gray-400">Practice coding problems and track your progress</p>
+            </div>
+
+            <!-- Filter and Search -->
+            <div class="mb-8 flex flex-col md:flex-row gap-4">
+                <div class="flex-1">
+                    <input type="text" placeholder="Search assignments..." 
+                           class="w-full px-4 py-2 bg-blue-900/20 border border-blue-800 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                <select class="px-4 py-2 bg-blue-900/20 border border-blue-800 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option>All Difficulties</option>
+                    <option>Easy</option>
+                    <option>Medium</option>
+                    <option>Hard</option>
+                </select>
+                <select class="px-4 py-2 bg-blue-900/20 border border-blue-800 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <option>All Topics</option>
+                    <option>Arrays</option>
+                    <option>Strings</option>
+                    <option>Dynamic Programming</option>
+                    <option>Trees</option>
+                </select>
+            </div>
+
+            <!-- Assignments Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Assignment Card 1 -->
+                <div class="bg-blue-900/20 backdrop-blur-sm border border-blue-800 rounded-xl p-6 hover:transform hover:scale-105 transition-all duration-200">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="px-3 py-1 bg-green-600/20 text-green-400 rounded-full text-sm font-medium">Easy</span>
+                        <span class="text-blue-400 text-sm">Arrays</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Two Sum</h3>
+                    <p class="text-gray-400 text-sm mb-4">Find two numbers in an array that add up to a target sum.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-500 text-sm">Acceptance: 85%</span>
+                        <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm transition-colors">
+                            Solve
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Assignment Card 2 -->
+                <div class="bg-blue-900/20 backdrop-blur-sm border border-blue-800 rounded-xl p-6 hover:transform hover:scale-105 transition-all duration-200">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="px-3 py-1 bg-yellow-600/20 text-yellow-400 rounded-full text-sm font-medium">Medium</span>
+                        <span class="text-blue-400 text-sm">Strings</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Longest Substring</h3>
+                    <p class="text-gray-400 text-sm mb-4">Find the length of the longest substring without repeating characters.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-500 text-sm">Acceptance: 62%</span>
+                        <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm transition-colors">
+                            Solve
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Assignment Card 3 -->
+                <div class="bg-blue-900/20 backdrop-blur-sm border border-blue-800 rounded-xl p-6 hover:transform hover:scale-105 transition-all duration-200">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="px-3 py-1 bg-red-600/20 text-red-400 rounded-full text-sm font-medium">Hard</span>
+                        <span class="text-blue-400 text-sm">Dynamic Programming</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Edit Distance</h3>
+                    <p class="text-gray-400 text-sm mb-4">Calculate minimum operations to transform one string into another.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-500 text-sm">Acceptance: 45%</span>
+                        <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm transition-colors">
+                            Solve
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Assignment Card 4 -->
+                <div class="bg-blue-900/20 backdrop-blur-sm border border-blue-800 rounded-xl p-6 hover:transform hover:scale-105 transition-all duration-200">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="px-3 py-1 bg-green-600/20 text-green-400 rounded-full text-sm font-medium">Easy</span>
+                        <span class="text-blue-400 text-sm">Trees</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Binary Tree Traversal</h3>
+                    <p class="text-gray-400 text-sm mb-4">Implement inorder, preorder, and postorder traversals.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-500 text-sm">Acceptance: 78%</span>
+                        <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm transition-colors">
+                            Solve
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Assignment Card 5 -->
+                <div class="bg-blue-900/20 backdrop-blur-sm border border-blue-800 rounded-xl p-6 hover:transform hover:scale-105 transition-all duration-200">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="px-3 py-1 bg-yellow-600/20 text-yellow-400 rounded-full text-sm font-medium">Medium</span>
+                        <span class="text-blue-400 text-sm">Arrays</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Rotate Array</h3>
+                    <p class="text-gray-400 text-sm mb-4">Rotate an array to the right by k steps efficiently.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-500 text-sm">Acceptance: 71%</span>
+                        <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm transition-colors">
+                            Solve
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Assignment Card 6 -->
+                <div class="bg-blue-900/20 backdrop-blur-sm border border-blue-800 rounded-xl p-6 hover:transform hover:scale-105 transition-all duration-200">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="px-3 py-1 bg-yellow-600/20 text-yellow-400 rounded-full text-sm font-medium">Medium</span>
+                        <span class="text-blue-400 text-sm">Graphs</span>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Course Schedule</h3>
+                    <p class="text-gray-400 text-sm mb-4">Determine if you can finish all courses given prerequisites.</p>
+                    <div class="flex items-center justify-between">
+                        <span class="text-gray-500 text-sm">Acceptance: 58%</span>
+                        <button class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm transition-colors">
+                            Solve
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Progress Section -->
+            <div class="mt-12">
+                <h2 class="text-2xl font-bold text-white mb-6">Your Progress</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-blue-900/20 backdrop-blur-sm border border-blue-800 rounded-xl p-6 text-center">
+                        <div class="w-16 h-16 bg-green-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-check text-green-400 text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">24</h3>
+                        <p class="text-gray-400">Problems Solved</p>
+                    </div>
+
+                    <div class="bg-blue-900/20 backdrop-blur-sm border border-blue-800 rounded-xl p-6 text-center">
+                        <div class="w-16 h-16 bg-blue-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-clock text-blue-400 text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">8</h3>
+                        <p class="text-gray-400">In Progress</p>
+                    </div>
+
+                    <div class="bg-blue-900/20 backdrop-blur-sm border border-blue-800 rounded-xl p-6 text-center">
+                        <div class="w-16 h-16 bg-purple-600/20 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <i class="fas fa-trophy text-purple-400 text-2xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-2">85%</h3>
+                        <p class="text-gray-400">Success Rate</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleLogout() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = '/';
+            }
+        }
+    </script>
+</body>
+</html>
