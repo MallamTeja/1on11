@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduConnect - Student Networking Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-black text-white min-h-screen flex">
+    <!-- Sidebar -->
+    <div class="w-64 bg-gray-900 border-r border-gray-800 flex flex-col">
+        <!-- Logo -->
+        <div class="p-6 border-b border-gray-800">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-graduation-cap text-white text-sm"></i>
+                </div>
+                <span class="text-xl font-bold text-purple-400">SkillSync</span>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex-1 p-4">
+            <ul class="space-y-2">
+                <li>
+                    <a href="dashboard.html" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition-colors" data-page="dashboard">
+                        <i class="fas fa-th-large w-5"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="profile.html" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition-colors" data-page="profile">
+                        <i class="fas fa-user w-5"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="chat.html" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition-colors" data-page="chat">
+                        <i class="fas fa-comments w-5"></i>
+                        <span>Chat</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="assignments.html" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition-colors" data-page="practice">
+                        <i class="fas fa-code w-5"></i>
+                        <span>Practice</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="assignments.html" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition-colors" data-page="assignments">
+                        <i class="fas fa-tasks w-5"></i>
+                        <span>Assignments</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="mentorship.html" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition-colors" data-page="mentorship">
+                        <i class="fas fa-user-graduate w-5"></i>
+                        <span>Mentorship</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="educonnect.html" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg bg-purple-600/20 text-purple-400 border border-purple-500/30" data-page="educonnect">
+                        <i class="fas fa-users w-5"></i>
+                        <span>EduConnect</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Bottom Actions -->
+        <div class="p-4 border-t border-gray-800 space-y-2">
+            <a href="profile.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">
+                <i class="fas fa-cog w-5"></i>
+                <span>Settings</span>
+            </a>
+            <button onclick="handleLogout()" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-red-400 hover:text-red-300 hover:bg-red-900/20 transition-colors w-full text-left">
+                <i class="fas fa-sign-out-alt w-5"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col">
+        <!-- Top Bar -->
+        <header class="bg-gray-900/50 border-b border-gray-800 p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl font-bold text-white">Student Networking</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <input type="text" placeholder="Search students by name, skills..." 
+                               class="w-96 px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <i class="fas fa-search absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                    <button class="p-2 text-gray-400 hover:text-white transition-colors">
+                        <i class="fas fa-bell text-xl"></i>
+                    </button>
+                    <button class="p-2 text-gray-400 hover:text-white transition-colors">
+                        <i class="fas fa-cog text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="flex-1 flex">
+            <!-- Main Content Area -->
+            <main class="flex-1 p-6 bg-gradient-to-br from-purple-900/20 to-blue-900/20">
+                <!-- Featured Students Section -->
+                <section class="mb-8">
+                    <h2 class="text-2xl font-bold text-white mb-6">Featured Students</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- Anya Sharma -->
+                        <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:transform hover:scale-105 transition-all duration-300">
+                            <div class="flex items-center space-x-4 mb-4">
+                                <div class="w-16 h-16 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+                                    <span class="text-white text-xl font-bold">AS</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold text-white">Anya Sharma</h3>
+                                    <p class="text-sm text-gray-400">Student @ MIT</p>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="px-2 py-1 bg-blue-600/20 text-blue-400 rounded text-xs">Python</span>
+                                    <span class="px-2 py-1 bg-green-600/20 text-green-400 rounded text-xs">Machine Learning</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 bg-purple-600/20 text-purple-400 rounded text-xs">Data Analysis</span>
+                                    <span class="px-2 py-1 bg-yellow-600/20 text-yellow-400 rounded text-xs">Prototyping</span>
+                                </div>
+                            </div>
+                            <button class="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-lg font-medium transition-colors">
+                                Connect
+                            </button>
+                        </div>
+
+                        <!-- David Chen -->
+                        <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:transform hover:scale-105 transition-all duration-300">
+                            <div class="flex items-center space-x-4 mb-4">
+                                <div class="w-16 h-16 bg-gradient-to-r from-green-500 to-blue-500 rounded-full flex items-center justify-center">
+                                    <span class="text-white text-xl font-bold">DC</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold text-white">David Chen</h3>
+                                    <p class="text-sm text-gray-400">Student @ UC</p>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="px-2 py-1 bg-orange-600/20 text-orange-400 rounded text-xs">UI/UX Design</span>
+                                    <span class="px-2 py-1 bg-pink-600/20 text-pink-400 rounded text-xs">Figma</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 bg-purple-600/20 text-purple-400 rounded text-xs">Prototyping</span>
+                                </div>
+                            </div>
+                            <button class="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-lg font-medium transition-colors">
+                                Connect
+                            </button>
+                        </div>
+
+                        <!-- Maria Garcia -->
+                        <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:transform hover:scale-105 transition-all duration-300">
+                            <div class="flex items-center space-x-4 mb-4">
+                                <div class="w-16 h-16 bg-gradient-to-r from-pink-500 to-red-500 rounded-full flex items-center justify-center">
+                                    <span class="text-white text-xl font-bold">MG</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold text-white">Maria Garcia</h3>
+                                    <p class="text-sm text-gray-400">Student @ MIT</p>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="px-2 py-1 bg-green-600/20 text-green-400 rounded text-xs">AI</span>
+                                    <span class="px-2 py-1 bg-blue-600/20 text-blue-400 rounded text-xs">Robotics</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 bg-purple-600/20 text-purple-400 rounded text-xs">Computer Vision</span>
+                                </div>
+                            </div>
+                            <button class="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-lg font-medium transition-colors">
+                                Connect
+                            </button>
+                        </div>
+
+                        <!-- Chris Lee -->
+                        <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:transform hover:scale-105 transition-all duration-300">
+                            <div class="flex items-center space-x-4 mb-4">
+                                <div class="w-16 h-16 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full flex items-center justify-center">
+                                    <span class="text-white text-xl font-bold">CL</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold text-white">Chris Lee</h3>
+                                    <p class="text-sm text-gray-400">Student @</p>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="px-2 py-1 bg-blue-600/20 text-blue-400 rounded text-xs">Web Development</span>
+                                    <span class="px-2 py-1 bg-green-600/20 text-green-400 rounded text-xs">React</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 bg-purple-600/20 text-purple-400 rounded text-xs">Node.js</span>
+                                </div>
+                            </div>
+                            <button class="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-lg font-medium transition-colors">
+                                Connect
+                            </button>
+                        </div>
+
+                        <!-- Sophia Patel -->
+                        <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:transform hover:scale-105 transition-all duration-300">
+                            <div class="flex items-center space-x-4 mb-4">
+                                <div class="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                                    <span class="text-white text-xl font-bold">SP</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold text-white">Sophia Patel</h3>
+                                    <p class="text-sm text-gray-400">Student @ Georgia</p>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="px-2 py-1 bg-red-600/20 text-red-400 rounded text-xs">Cybersecurity</span>
+                                    <span class="px-2 py-1 bg-blue-600/20 text-blue-400 rounded text-xs">Network Security</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 bg-green-600/20 text-green-400 rounded text-xs">Ethical Hacking</span>
+                                </div>
+                            </div>
+                            <button class="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-lg font-medium transition-colors">
+                                Connect
+                            </button>
+                        </div>
+
+                        <!-- Liam Jackson -->
+                        <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6 hover:transform hover:scale-105 transition-all duration-300">
+                            <div class="flex items-center space-x-4 mb-4">
+                                <div class="w-16 h-16 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-full flex items-center justify-center">
+                                    <span class="text-white text-xl font-bold">LJ</span>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold text-white">Liam Jackson</h3>
+                                    <p class="text-sm text-gray-400">Student @</p>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <div class="flex flex-wrap gap-2 mb-3">
+                                    <span class="px-2 py-1 bg-blue-600/20 text-blue-400 rounded text-xs">Cloud Computing</span>
+                                    <span class="px-2 py-1 bg-orange-600/20 text-orange-400 rounded text-xs">AWS</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="px-2 py-1 bg-green-600/20 text-green-400 rounded text-xs">DevOps</span>
+                                </div>
+                            </div>
+                            <button class="w-full bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-lg font-medium transition-colors">
+                                Connect
+                            </button>
+                        </div>
+                    </div>
+                </section>
+            </main>
+
+            <!-- Right Sidebar -->
+            <aside class="w-80 bg-gray-900/30 border-l border-gray-800 p-6">
+                <!-- Suggested Students to Connect -->
+                <section class="mb-8">
+                    <h3 class="text-lg font-semibold text-white mb-4">Suggested Students to Connect</h3>
+                    <div class="space-y-4">
+                        <!-- Olivia White -->
+                        <div class="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-gradient-to-r from-green-500 to-teal-500 rounded-full flex items-center justify-center">
+                                    <span class="text-white text-sm font-bold">OW</span>
+                                </div>
+                                <div>
+                                    <p class="text-white font-medium">Olivia White</p>
+                                    <p class="text-xs text-gray-400">Student @</p>
+                                </div>
+                            </div>
+                            <button class="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white text-sm rounded transition-colors">
+                                Connect
+                            </button>
+                        </div>
+
+                        <!-- Noah Brown -->
+                        <div class="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center">
+                                    <span class="text-white text-sm font-bold">NB</span>
+                                </div>
+                                <div>
+                                    <p class="text-white font-medium">Noah Brown</p>
+                                    <p class="text-xs text-gray-400">Student @</p>
+                                </div>
+                            </div>
+                            <button class="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white text-sm rounded transition-colors">
+                                Connect
+                            </button>
+                        </div>
+
+                        <!-- Isabella Davis -->
+                        <div class="flex items-center justify-between p-3 bg-gray-800/50 rounded-lg">
+                            <div class="flex items-center space-x-3">
+                                <div class="w-10 h-10 bg-gradient-to-r from-pink-500 to-red-500 rounded-full flex items-center justify-center">
+                                    <span class="text-white text-sm font-bold">ID</span>
+                                </div>
+                                <div>
+                                    <p class="text-white font-medium">Isabella Davis</p>
+                                    <p class="text-xs text-gray-400">Student @ Texas</p>
+                                </div>
+                            </div>
+                            <button class="px-3 py-1 bg-purple-600 hover:bg-purple-700 text-white text-sm rounded transition-colors">
+                                Connect
+                            </button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Trending Skills -->
+                <section>
+                    <h3 class="text-lg font-semibold text-white mb-4">Trending Skills</h3>
+                    <div class="space-y-3">
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-2 bg-blue-600/20 text-blue-400 rounded-lg text-sm hover:bg-blue-600/30 transition-colors cursor-pointer">Quantum Computing</span>
+                            <span class="px-3 py-2 bg-purple-600/20 text-purple-400 rounded-lg text-sm hover:bg-purple-600/30 transition-colors cursor-pointer">Blockchain</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-2 bg-green-600/20 text-green-400 rounded-lg text-sm hover:bg-green-600/30 transition-colors cursor-pointer">Augmented Reality</span>
+                            <span class="px-3 py-2 bg-orange-600/20 text-orange-400 rounded-lg text-sm hover:bg-orange-600/30 transition-colors cursor-pointer">Bioinformatics</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-2 bg-yellow-600/20 text-yellow-400 rounded-lg text-sm hover:bg-yellow-600/30 transition-colors cursor-pointer">Sustainable Engineering</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-2 bg-red-600/20 text-red-400 rounded-lg text-sm hover:bg-red-600/30 transition-colors cursor-pointer">Product Management</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-2 bg-pink-600/20 text-pink-400 rounded-lg text-sm hover:bg-pink-600/30 transition-colors cursor-pointer">Digital Marketing</span>
+                        </div>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="px-3 py-2 bg-cyan-600/20 text-cyan-400 rounded-lg text-sm hover:bg-cyan-600/30 transition-colors cursor-pointer">Game Development</span>
+                        </div>
+                    </div>
+                </section>
+            </aside>
+        </div>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="nav-script.js"></script>
+    <script>
+        // Authentication check
+        const auth = new AuthManager();
+        
+        // Check if user is authenticated
+        if (!auth.isAuthenticated()) {
+            window.location.href = 'pages/login.html';
+        }
+
+        // Check authentication and load user data
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Require authentication
+            if (typeof auth !== 'undefined') {
+                auth.requireAuth();
+            }
+            
+            // Initialize page interactions
+            initializeNetworkingPage();
+        });
+
+        // Initialize networking page functionality
+        function initializeNetworkingPage() {
+            // Search functionality
+            const searchInput = document.querySelector('input[placeholder*="Search students"]');
+            if (searchInput) {
+                searchInput.addEventListener('input', function(e) {
+                    const searchTerm = e.target.value.toLowerCase();
+                    filterStudents(searchTerm);
+                });
+            }
+
+            // Connect button functionality
+            const connectButtons = document.querySelectorAll('button:contains("Connect")');
+            connectButtons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    handleConnect(this);
+                });
+            });
+
+            // Trending skills click functionality
+            const skillTags = document.querySelectorAll('.cursor-pointer');
+            skillTags.forEach(tag => {
+                tag.addEventListener('click', function() {
+                    const skill = this.textContent;
+                    filterBySkill(skill);
+                });
+            });
+
+            // Add hover animations to student cards
+            const studentCards = document.querySelectorAll('.bg-gray-900\\/50');
+            studentCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.classList.add('shadow-xl', 'shadow-purple-500/20');
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.classList.remove('shadow-xl', 'shadow-purple-500/20');
+                });
+            });
+        }
+
+        // Filter students based on search term
+        function filterStudents(searchTerm) {
+            const studentCards = document.querySelectorAll('main .bg-gray-900\\/50');
+            studentCards.forEach(card => {
+                const name = card.querySelector('h3').textContent.toLowerCase();
+                const skills = Array.from(card.querySelectorAll('.px-2')).map(skill => skill.textContent.toLowerCase());
+                const school = card.querySelector('.text-gray-400').textContent.toLowerCase();
+                
+                const matches = name.includes(searchTerm) || 
+                               skills.some(skill => skill.includes(searchTerm)) ||
+                               school.includes(searchTerm);
+                
+                card.style.display = matches ? 'block' : 'none';
+            });
+        }
+
+        // Filter students by skill
+        function filterBySkill(skill) {
+            const searchInput = document.querySelector('input[placeholder*="Search students"]');
+            if (searchInput) {
+                searchInput.value = skill;
+                filterStudents(skill.toLowerCase());
+            }
+        }
+
+        // Handle connect button click
+        function handleConnect(button) {
+            const card = button.closest('.bg-gray-900\\/50');
+            const studentName = card.querySelector('h3').textContent;
+            
+            // Simulate connection process
+            button.textContent = 'Connecting...';
+            button.disabled = true;
+            button.classList.add('opacity-50');
+            
+            setTimeout(() => {
+                button.textContent = 'Connected';
+                button.classList.remove('bg-purple-600', 'hover:bg-purple-700');
+                button.classList.add('bg-green-600', 'hover:bg-green-700');
+                
+                // Show success message
+                showNotification(`Connected with ${studentName}!`);
+            }, 1500);
+        }
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.className = 'fixed top-4 right-4 bg-green-600 text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300';
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+            
+            // Remove after 3 seconds
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+
+        // Add CSS selector helper for contains
+        document.querySelectorAll = function(selector) {
+            if (selector.includes(':contains(')) {
+                const match = selector.match(/:contains\("([^"]+)"\)/);
+                if (match) {
+                    const text = match[1];
+                    const baseSelector = selector.replace(/:contains\("[^"]+"\)/, '');
+                    const elements = Array.from(document.querySelectorAll(baseSelector || '*'));
+                    return elements.filter(el => el.textContent.includes(text));
+                }
+            }
+            return NodeList.prototype.constructor.prototype.querySelectorAll.call(document, selector);
+        };
+    </script>
+</body>
+</html>

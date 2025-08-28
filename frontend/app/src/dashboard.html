@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - SkillSync</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-black text-white min-h-screen">
+    <!-- Include Navigation -->
+    <div id="navbar">
+        <!-- Navigation will be loaded here -->
+    </div>
+
+    <!-- Main Content -->
+    <main class="ml-64 mt-24 p-6">
+        <!-- Top Bar -->
+        <header class="bg-gray-900/50 border-b border-gray-800 p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-white" id="welcomeMessage">Hello, User!</h1>
+                    <p class="text-gray-400 mt-1" id="userRole">Loading...</p>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <input type="text" placeholder="Search for mentors, challenges, or users..." 
+                               class="w-96 px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <i class="fas fa-search absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                    <button class="p-2 text-gray-400 hover:text-white transition-colors">
+                        <i class="fas fa-bell text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Current Badges Section -->
+            <section class="mb-8">
+                <h2 class="text-2xl font-bold text-white mb-6">Current Badges</h2>
+                <div id="badgesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Badges will be loaded dynamically -->
+                    <div class="col-span-full text-center py-8">
+                        <i class="fas fa-medal text-gray-600 text-4xl mb-4"></i>
+                        <p class="text-gray-400">No badges earned yet. Start practicing to earn your first badge!</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Upcoming Sessions Section -->
+            <section class="mb-8">
+                <h2 class="text-2xl font-bold text-white mb-6">Upcoming Sessions</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <!-- React Hooks Masterclass -->
+                    <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-calendar text-white"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-semibold text-white mb-2">React Hooks Masterclass</h3>
+                                <p class="text-purple-400 mb-2">August 15, 2024 - 3:00 PM</p>
+                                <p class="text-sm text-gray-400 mb-2">With Mentor Jane Doe</p>
+                                <p class="text-sm text-gray-300">Deep dive into advanced React Hooks patterns and performance optimization techniques.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Algorithm Whiteboarding -->
+                    <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6">
+                        <div class="flex items-start space-x-4">
+                            <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                                <i class="fas fa-calendar text-white"></i>
+                            </div>
+                            <div class="flex-1">
+                                <h3 class="text-xl font-semibold text-white mb-2">Algorithm Whiteboarding</h3>
+                                <p class="text-purple-400 mb-2">August 18, 2024 - 10:00 AM</p>
+                                <p class="text-sm text-gray-400 mb-2">With Mentor John Smith</p>
+                                <p class="text-sm text-gray-300">Practice common interview algorithms and data structures. Bring your favorite whiteboard!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Practice History Summary -->
+            <section>
+                <h2 class="text-2xl font-bold text-white mb-6">Practice History Summary</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Progress Overview Chart -->
+                    <div class="lg:col-span-2">
+                        <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6">
+                            <h3 class="text-xl font-semibold text-white mb-4">Your Progress Overview</h3>
+                            <div style="height: 300px; position: relative;">
+                                <canvas id="progressChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Stats Card -->
+                    <div class="bg-gray-900/50 backdrop-blur-sm rounded-xl p-6 text-white">
+                        <h3 class="text-xl font-semibold mb-6 text-center">Your Progress Overview</h3>
+                        
+                        <div class="space-y-6">
+                            <!-- Problems Solved -->
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-sm font-medium">Problems Solved</span>
+                                    <span class="text-sm text-gray-600" id="problemsText">0/200</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3">
+                                    <div id="problemsBar" class="bg-purple-600 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Challenges Attempted -->
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-sm font-medium">Challenges Attempted</span>
+                                    <span class="text-sm text-gray-600" id="challengesText">0/120</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3">
+                                    <div id="challengesBar" class="bg-blue-600 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
+                                </div>
+                            </div>
+
+                            <!-- Average Accuracy Rate -->
+                            <div>
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-sm font-medium">Average Accuracy Rate</span>
+                                    <span class="text-sm text-gray-600" id="accuracyText">0%</span>
+                                </div>
+                                <div class="w-full bg-gray-200 rounded-full h-3">
+                                    <div id="accuracyBar" class="bg-green-600 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="w-full mt-6 bg-purple-600 hover:bg-purple-700 text-white py-2 px-4 rounded-lg font-medium transition-colors">
+                            View Detailed Practice
+                        </button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Load Navigation -->
+    <script>
+        // Load navigation
+        fetch('components/navbar.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('navbar').innerHTML = html;
+                // Initialize any navigation-related scripts here
+            });
+
+        // Add this function to handle logout
+        function handleLogout() {
+            // Clear user session
+            localStorage.removeItem('token');
+            // Redirect to login page
+            window.location.href = 'login.html';
+        }
+    </script>
+
+    <!-- Toast Container -->
+    <div id="toastContainer" class="fixed top-4 right-4 z-50 space-y-2"></div>
+    
+    <script src="js/auth.js"></script>
+    <script>
+        // Toast notification function
+        function showToast(message, type = 'info') {
+            const toastContainer = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            
+            const bgColor = type === 'success' ? 'bg-green-600' : 
+                           type === 'error' ? 'bg-red-600' : 'bg-blue-600';
+            
+            toast.className = `${bgColor} text-white px-6 py-3 rounded-lg shadow-lg transform transition-all duration-300 translate-x-full opacity-0`;
+            toast.textContent = message;
+            
+            toastContainer.appendChild(toast);
+            
+            // Animate in
+            setTimeout(() => {
+                toast.classList.remove('translate-x-full', 'opacity-0');
+            }, 100);
+            
+            // Auto remove after 3 seconds
+            setTimeout(() => {
+                toast.classList.add('translate-x-full', 'opacity-0');
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        // Check authentication and load user data
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Update welcome message
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (user) {
+                document.getElementById('welcomeMessage').textContent = `Hello, ${user.name || 'User'}!`;
+                document.getElementById('userRole').textContent = user.role ? `${user.role.charAt(0).toUpperCase() + user.role.slice(1)} Dashboard` : 'Dashboard';
+                
+                // Update progress stats with sample data
+                updateProgressStats({
+                    problemsSolved: 85,
+                    challengesAttempted: 67,
+                    averageAccuracy: 78,
+                    totalChallenges: 200
+                });
+            }
+            
+            // Initialize chart
+            initProgressChart();
+            
+            // Add hover effects to navigation items
+            document.querySelectorAll('nav a').forEach(link => {
+                link.addEventListener('mouseenter', function() {
+                    if (!this.classList.contains('border-purple-500/30')) {
+                        this.classList.add('transform', 'scale-105');
+                    }
+                });
+                
+                link.addEventListener('mouseleave', function() {
+                    this.classList.remove('transform', 'scale-105');
+                });
+            });
+        });
+
+        // Initialize progress chart
+        function initProgressChart() {
+            const ctx = document.getElementById('progressChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'],
+                    datasets: [{
+                        label: 'Problems Solved',
+                        data: [12, 19, 25, 32, 45, 58, 72, 89],
+                        borderColor: '#8b5cf6',
+                        backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }, {
+                        label: 'Challenges Completed',
+                        data: [8, 15, 20, 28, 35, 42, 55, 68],
+                        borderColor: '#3b82f6',
+                        backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                        tension: 0.4,
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            labels: {
+                                color: '#ffffff'
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            ticks: {
+                                color: '#9ca3af'
+                            },
+                            grid: {
+                                color: '#374151'
+                            }
+                        },
+                        y: {
+                            ticks: {
+                                color: '#9ca3af'
+                            },
+                            grid: {
+                                color: '#374151'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Update progress statistics
+        function updateProgressStats(stats) {
+            const problemsSolved = stats.problemsSolved || 0;
+            const challengesAttempted = stats.challengesAttempted || 0;
+            const averageAccuracy = stats.averageAccuracy || 0;
+            const totalChallenges = stats.totalChallenges || 200;
+            
+            // Update problems solved
+            const problemsPercentage = Math.min((problemsSolved / totalChallenges) * 100, 100);
+            document.getElementById('problemsText').textContent = `${problemsSolved}/${totalChallenges}`;
+            document.getElementById('problemsBar').style.width = `${problemsPercentage}%`;
+            
+            // Update challenges attempted
+            const challengesPercentage = Math.min((challengesAttempted / 120) * 100, 100);
+            document.getElementById('challengesText').textContent = `${challengesAttempted}/120`;
+            document.getElementById('challengesBar').style.width = `${challengesPercentage}%`;
+            
+            // Update accuracy
+            document.getElementById('accuracyText').textContent = `${averageAccuracy}%`;
+            document.getElementById('accuracyBar').style.width = `${averageAccuracy}%`;
+        }
+    </script>
+</body>
+</html>

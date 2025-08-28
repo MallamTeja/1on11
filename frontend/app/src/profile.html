@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - SkillSync</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-black text-white min-h-screen flex">
+    <!-- Sidebar -->
+    <div class="w-64 bg-gray-900 border-r border-gray-800 flex flex-col">
+        <!-- Logo -->
+        <div class="p-6 border-b border-gray-800">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center">
+                    <i class="fas fa-code text-white text-sm"></i>
+                </div>
+                <span class="text-xl font-bold text-purple-400">SkillSync</span>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <nav class="flex-1 p-4">
+            <ul class="space-y-2">
+                <li>
+                    <a href="dashboard.html" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition-colors" data-page="dashboard">
+                        <i class="fas fa-th-large w-5"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="profile.html" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg bg-purple-600/20 text-purple-400 border border-purple-500/30" data-page="profile">
+                        <i class="fas fa-user w-5"></i>
+                        <span>Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="chat.html" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition-colors" data-page="chat">
+                        <i class="fas fa-comments w-5"></i>
+                        <span>Chat</span>
+                    </a>
+                </li>
+            
+                <li>
+                    <a href="assignments.html" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition-colors" data-page="assignments">
+                        <i class="fas fa-tasks w-5"></i>
+                        <span>Assignments</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="mentorship.html" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition-colors" data-page="mentorship">
+                        <i class="fas fa-user-graduate w-5"></i>
+                        <span>Mentorship</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/educonnect" class="nav-link flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition-colors" data-page="educonnect">
+                        <i class="fas fa-users w-5"></i>
+                        <span>EduConnect</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Bottom Actions -->
+        <div class="p-4 border-t border-gray-800 space-y-2">
+            <a href="profile.html" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-gray-400 hover:text-white hover:bg-gray-800 transition-colors">
+                <i class="fas fa-cog w-5"></i>
+                <span>Settings</span>
+            </a>
+            <button onclick="handleLogout()" class="flex items-center space-x-3 px-4 py-3 rounded-lg text-red-400 hover:text-red-300 hover:bg-red-900/20 transition-colors w-full text-left">
+                <i class="fas fa-sign-out-alt w-5"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col">
+        <!-- Top Bar -->
+        <header class="bg-gray-900/50 border-b border-gray-800 p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-white">Profile</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <div class="relative">
+                        <input type="text" placeholder="Search for mentors, challenges, or users..." 
+                               class="w-96 px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <i class="fas fa-search absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    </div>
+                    <button class="p-2 text-gray-400 hover:text-white transition-colors">
+                        <i class="fas fa-bell text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Toast Container -->
+        <div id="toastContainer" class="fixed top-4 right-4 z-50 space-y-2"></div>
+        
+        <!-- Profile Content -->
+        <main class="flex-1 relative overflow-hidden">
+            <!-- Network Background -->
+            <div class="absolute inset-0 bg-gradient-to-br from-purple-900/30 via-blue-900/20 to-purple-800/30">
+                <canvas id="networkCanvas" class="w-full h-full"></canvas>
+            </div>
+
+            <!-- Profile Content Overlay -->
+            <div class="relative z-10 p-6">
+                <!-- Profile Header -->
+                <div class="mb-8">
+                    <div class="flex items-start space-x-6">
+                        <!-- Avatar -->
+                        <div class="relative">
+                            <div class="w-32 h-32 bg-gradient-to-br from-pink-400 to-purple-600 rounded-full flex items-center justify-center text-4xl font-bold">
+                                NC
+                            </div>
+                            <div class="absolute bottom-2 right-2 w-6 h-6 bg-green-500 rounded-full border-4 border-black"></div>
+                        </div>
+
+                        <!-- User Info -->
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between mb-4">
+                                <div>
+                                    <h2 class="text-4xl font-bold text-white mb-2" id="userName">Neo Coder</h2>
+                                    <div class="flex items-center space-x-4 mb-3">
+                                        <span class="bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-medium" id="userRole">Mentor</span>
+                                        <span class="text-gray-400">Fullstack Developer</span>
+                                    </div>
+                                </div>
+                                <button onclick="openEditModal()" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg font-medium transition-colors">
+                                    Edit Profile
+                                </button>
+                            </div>
+                            <p class="text-gray-300 text-lg leading-relaxed max-w-2xl" id="userBio">
+                                Passionate about crafting scalable web applications and solving complex algorithmic challenges. Always learning new technologies and eager to collaborate on innovative projects.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Content Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Skills & Technologies -->
+                    <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-2xl font-bold text-white">Skills & Technologies</h3>
+                            <button id="editSkillsBtn" class="text-purple-400 hover:text-purple-300 transition-colors">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                        </div>
+                        <div id="skillsView" class="space-y-4">
+                            <!-- Programming Languages -->
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-400 mb-3">Programming Languages</h4>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-blue-600 text-white px-3 py-1 rounded-full text-sm">React</span>
+                                    <span class="bg-yellow-600 text-white px-3 py-1 rounded-full text-sm">TypeScript</span>
+                                    <span class="bg-green-600 text-white px-3 py-1 rounded-full text-sm">Node.js</span>
+                                    <span class="bg-pink-600 text-white px-3 py-1 rounded-full text-sm">GraphQL</span>
+                                    <span class="bg-blue-500 text-white px-3 py-1 rounded-full text-sm">Tailwind CSS</span>
+                                </div>
+                            </div>
+                            
+                            <!-- Tools & Frameworks -->
+                            <div>
+                                <h4 class="text-sm font-medium text-gray-400 mb-3">Tools & Frameworks</h4>
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-orange-600 text-white px-3 py-1 rounded-full text-sm">AWS</span>
+                                    <span class="bg-purple-600 text-white px-3 py-1 rounded-full text-sm">Figma</span>
+                                    <span class="bg-red-600 text-white px-3 py-1 rounded-full text-sm">Problem Solving</span>
+                                    <span class="bg-indigo-600 text-white px-3 py-1 rounded-full text-sm">System Design</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Skills Edit Form (Hidden by default) -->
+                    <div id="skillsEditForm" class="hidden bg-gray-900/50 backdrop-blur-sm border border-purple-500/30 rounded-xl p-6 mb-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-2xl font-bold text-white">Edit Skills</h3>
+                            <button id="saveSkillsBtn" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-colors">
+                                Save Changes
+                            </button>
+                        </div>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-gray-400 mb-2">Add New Skill</label>
+                                <div class="flex space-x-2">
+                                    <input type="text" id="newSkillInput" placeholder="e.g., React, Node.js" class="flex-1 bg-gray-800/80 border border-gray-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-purple-500">
+                                    <button id="addSkillBtn" class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg transition-colors">
+                                        Add
+                                    </button>
+                                </div>
+                            </div>
+                            <div id="skillsList" class="space-y-2">
+                                <!-- Skills will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Certifications -->
+                    <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6">
+                        <div class="flex justify-between items-center mb-6">
+                            <h3 class="text-2xl font-bold text-white">Certifications</h3>
+                            <button id="editCertsBtn" class="text-purple-400 hover:text-purple-300 transition-colors">
+                                <i class="fas fa-edit"></i> Edit
+                            </button>
+                        </div>
+                        <div id="certsView" class="space-y-4">
+                            <!-- Algorithm Master -->
+                            <div class="flex items-center space-x-4 p-3 bg-gray-800/50 rounded-lg">
+                                <div class="w-12 h-12 bg-gradient-to-r from-yellow-500 to-orange-500 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-trophy text-white"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-semibold text-white">Algorithm Master</h4>
+                                    <p class="text-sm text-gray-400">Solved 100+ Hard Challenges</p>
+                                </div>
+                            </div>
+
+                            <!-- Open Source Contributor -->
+                            <div class="flex items-center space-x-4 p-3 bg-gray-800/50 rounded-lg">
+                                <div class="w-12 h-12 bg-gradient-to-r from-green-500 to-emerald-500 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-code-branch text-white"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-semibold text-white">Open Source Contributor</h4>
+                                    <p class="text-sm text-gray-400">Contributed to 5+ major projects</p>
+                                </div>
+                            </div>
+
+                            <!-- Community Helper -->
+                            <div class="flex items-center space-x-4 p-3 bg-gray-800/50 rounded-lg">
+                                <div class="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
+                                    <i class="fas fa-hands-helping text-white"></i>
+                                </div>
+                                <div class="flex-1">
+                                    <h4 class="font-semibold text-white">Community Helper</h4>
+                                    <p class="text-sm text-gray-400">Answered 500+ forum questions</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coding Challenge Progress -->
+                <div class="mt-8">
+                    <div class="bg-gray-900/50 backdrop-blur-sm border border-gray-800 rounded-xl p-6">
+                        <h3 class="text-2xl font-bold text-white mb-6">Coding Challenge Progress</h3>
+                        
+                        <div class="flex items-center justify-center">
+                            <div class="relative w-64 h-64">
+                                <canvas id="progressChart" width="256" height="256"></canvas>
+                                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                    <div class="text-center">
+                                        <div class="text-4xl font-bold text-purple-400 mb-2" id="solvedCount">150</div>
+                                        <div class="text-sm text-gray-400 mb-1">Solved</div>
+                                        <div class="text-sm text-gray-500" id="attemptedCount">Attempted</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6 text-center">
+                            <div class="flex items-center justify-center space-x-8 mb-4">
+                                <div class="flex items-center space-x-2">
+                                    <div class="w-3 h-3 bg-purple-500 rounded-full"></div>
+                                    <span class="text-sm text-gray-400">Solved</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <div class="w-3 h-3 bg-gray-600 rounded-full"></div>
+                                    <span class="text-sm text-gray-400">Attempted</span>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <div class="text-sm text-gray-400 mb-2">Challenges Solved: <span class="text-purple-400 font-semibold">150 / 200</span></div>
+                                <div class="w-full bg-gray-700 rounded-full h-2">
+                                    <div class="bg-gradient-to-r from-purple-500 to-purple-600 h-2 rounded-full" style="width: 75%"></div>
+                                </div>
+                                <div class="text-sm text-purple-400 font-semibold mt-1">75% Completion</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="nav-script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script>
+        // Toast notification function
+        function showToast(message, type = 'info') {
+            const toastContainer = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            
+            const bgColor = type === 'success' ? 'bg-green-600' : 
+                           type === 'error' ? 'bg-red-600' : 'bg-blue-600';
+            
+            toast.className = `${bgColor} text-white px-6 py-3 rounded-lg shadow-lg transform transition-all duration-300 translate-x-full opacity-0`;
+            toast.textContent = message;
+            
+            toastContainer.appendChild(toast);
+            
+            // Animate in
+            setTimeout(() => {
+                toast.classList.remove('translate-x-full', 'opacity-0');
+            }, 100);
+            
+            // Auto remove after 3 seconds
+            setTimeout(() => {
+                toast.classList.add('translate-x-full', 'opacity-0');
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
+                }, 300);
+            }, 3000);
+        }
+        
+        // Loading state function
+        function showLoading(button) {
+            const originalText = button.textContent;
+            button.disabled = true;
+            button.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i>Updating...';
+            
+            return function hideLoading() {
+                button.disabled = false;
+                button.textContent = originalText;
+            };
+        }
+
+        // Initialize Sortable for skills
+        let skillsSortable;
+        let certsSortable;
+
+        // Check authentication and load user data
+        document.addEventListener('DOMContentLoaded', async function() {
+            const authManager = new AuthManager();
+            
+            // Initialize sortable lists
+            const initSortable = () => {
+                skillsSortable = new Sortable(document.getElementById('skillsList'), {
+                    animation: 150,
+                    ghostClass: 'opacity-50',
+                    onEnd: function() {
+                        updateSkillOrder();
+                    }
+                });
+                
+                certsSortable = new Sortable(document.getElementById('certsList'), {
+                    animation: 150,
+                    ghostClass: 'opacity-50',
+                    onEnd: function() {
+                        updateCertOrder();
+                    }
+                });
+            };
+            
+            // Initialize after DOM is fully loaded
+            setTimeout(initSortable, 500);
+            
+            // Check if user is authenticated
+            const user = authManager.getCurrentUser();
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // Load fresh user data from API
+            try {
+                const response = await fetch('/api/profile', {
+                    headers: {
+                        'Authorization': `Bearer ${authManager.getToken()}`
+                    }
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    updateUIWithUserData(result.data.profile);
+                } else {
+                    // Fallback to stored user data
+                    updateUIWithUserData(user);
+                }
+            } catch (error) {
+                console.error('Error loading profile data:', error);
+                updateUIWithUserData(user);
+            }
+        });
+
+        // Load user data on page load
+        async function loadUserData() {
+            try {
+                const authManager = new AuthManager();
+                const response = await fetch('/api/profile/me', {
+                    headers: {
+                        'Authorization': `Bearer ${authManager.getToken()}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    if (data.profile) {
+                        // Initialize skills and certifications if they don't exist
+                        if (!data.profile.skills) {
+                            data.profile.skills = [];
+                        }
+                        if (!data.profile.certifications) {
+                            data.profile.certifications = [];
+                        }
+                        updateUIWithUserData(data);
+                        
+                        // Initialize the views
+                        updateSkillsView(data.profile.skills);
+                        updateCertsView(data.profile.certifications);
+                    }
+                } else {
+                    const errorData = await response.json();
+                    throw new Error(errorData.message || 'Failed to load user data');
+                }
+            } catch (error) {
+                console.error('Error loading user data:', error);
+                showToast(error.message || 'Failed to load user data. Please refresh the page.', 'error');
+            }
+        };
+
+        // Update UI with user data
+        function updateUIWithUserData(user) {
+            // Update profile photo
+            const profilePhoto = document.getElementById('profilePhoto');
+            if (user.profile && user.profile.profilePhoto) {
+                profilePhoto.src = user.profile.profilePhoto;
+            }
+            
+            // Update basic info
+            document.getElementById('userName').textContent = user.fullName || user.username;
+            document.getElementById('userRole').textContent = user.role || 'Student';
+            document.getElementById('userEmail').textContent = user.email;
+            document.getElementById('memberSince').textContent = new Date(user.createdAt).toLocaleDateString();
+            
+            // Update profile form fields
+            if (user.profile) {
+                document.getElementById('bio').value = user.profile.bio || '';
+                document.getElementById('title').value = user.profile.title || '';
+                document.getElementById('location').value = user.profile.location || '';
+                document.getElementById('website').value = user.profile.website || '';
+                document.getElementById('linkedin').value = user.profile.linkedin || '';
+                
+                // Update skills
+                if (user.profile.skills && Array.isArray(user.profile.skills)) {
+                    document.getElementById('skills').value = user.profile.skills.join(', ');
+                }
+            }
+        }
+
+        // Toggle skills edit mode
+        document.getElementById('editSkillsBtn').addEventListener('click', function() {
+            document.getElementById('skillsView').classList.add('hidden');
+            document.getElementById('skillsEditForm').classList.remove('hidden');
+            loadSkillsForEditing();
+        });
+
+        // Toggle certs edit mode
+        document.getElementById('editCertsBtn').addEventListener('click', function() {
+            document.getElementById('certsView').classList.add('hidden');
+            document.getElementById('certsEditForm').classList.remove('hidden');
+            loadCertsForEditing();
+        });
+
+        // Add new skill
+        document.getElementById('addSkillBtn').addEventListener('click', addNewSkill);
+        document.getElementById('newSkillInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') addNewSkill();
+        });
+
+        // Add new cert
+        document.getElementById('addCertBtn').addEventListener('click', addNewCert);
+        document.getElementById('newCertInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') addNewCert();
+        });
+
+        // Save skills
+        document.getElementById('saveSkillsBtn').addEventListener('click', saveSkills);
+        document.getElementById('saveCertsBtn').addEventListener('click', saveCerts);
+
+        // Handle profile form submission
+        document.getElementById('profileForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const authManager = new AuthManager();
+            const submitBtn = document.querySelector('#profileForm button[type="submit"]');
+            const hideLoading = showLoading(submitBtn);
+            
+            try {
+                const formData = {
+                    bio: document.getElementById('bio').value.trim(),
+                    title: document.getElementById('title').value.trim(),
+                    location: document.getElementById('location').value.trim(),
+                    website: document.getElementById('website').value.trim(),
+                    linkedin: document.getElementById('linkedin').value.trim(),
+                    skills: document.getElementById('skills').value.split(',').map(s => s.trim()).filter(s => s)
+                };
+                
+                const response = await fetch('/api/profile', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authManager.getToken()}`
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    showToast('Profile updated successfully!', 'success');
+                } else {
+                    showToast(result.message || 'Failed to update profile', 'error');
+                }
+            } catch (error) {
+                console.error('Profile update error:', error);
+                showToast('Network error. Please try again.', 'error');
+            } finally {
+                hideLoading();
+            }
+        });
+
+        // Handle profile photo upload
+        document.getElementById('photoUpload').addEventListener('change', async function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            // Validate file type
+            if (!file.type.startsWith('image/')) {
+                showToast('Please select an image file', 'error');
+                return;
+            }
+            
+            // Validate file size (5MB limit)
+            if (file.size > 5 * 1024 * 1024) {
+                showToast('File size must be less than 5MB', 'error');
+                return;
+            }
+            
+            const authManager = new AuthManager();
+            const formData = new FormData();
+            formData.append('profilePhoto', file);
+            
+            try {
+                const response = await fetch('/api/profile/photo', {
+                    method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${authManager.getToken()}`
+                    },
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (result.success) {
+                    // Update profile photo immediately
+                    document.getElementById('profilePhoto').src = result.data.photoPath;
+                    showToast('Profile photo updated successfully!', 'success');
+                } else {
+                    showToast(result.message || 'Failed to upload photo', 'error');
+                }
+            } catch (error) {
+                console.error('Photo upload error:', error);
+                showToast('An error occurred while uploading the photo.', 'error');
+            }
+        });
+
+
+        // Add dynamic form validation
+        const inputs = document.querySelectorAll('input, textarea, select');
+        inputs.forEach(input => {
+            input.addEventListener('focus', function() {
+                this.classList.add('ring-2', 'ring-purple-500');
+            });
+            
+            input.addEventListener('blur', function() {
+                this.classList.remove('ring-2', 'ring-purple-500');
+            });
+        });
+
+        
+        // Skill management functions
+        function addNewSkill() {
+            const input = document.getElementById('newSkillInput');
+            const skillName = input.value.trim();
+            
+            if (skillName) {
+                const skillId = 'skill-' + Date.now();
+                const skillElement = document.createElement('div');
+                skillElement.className = 'flex items-center justify-between bg-gray-800/50 p-3 rounded-lg border border-gray-700';
+                skillElement.dataset.id = skillId;
+                skillElement.innerHTML = `
+                    <span class="text-white">${skillName}</span>
+                    <div class="flex items-center space-x-2">
+                        <select class="bg-gray-700 text-white text-sm rounded px-2 py-1">
+                            <option value="beginner">Beginner</option>
+                            <option value="intermediate">Intermediate</option>
+                            <option value="advanced">Advanced</option>
+                            <option value="expert">Expert</option>
+                        </select>
+                        <button class="text-red-400 hover:text-red-300 delete-skill">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                
+                document.getElementById('skillsList').appendChild(skillElement);
+                input.value = '';
+                
+                // Add delete event listener
+                skillElement.querySelector('.delete-skill').addEventListener('click', function() {
+                    skillElement.remove();
+                });
+            }
+        }
+        
+        function loadSkillsForEditing() {
+            const skillsContainer = document.getElementById('skillsList');
+            skillsContainer.innerHTML = '';
+            
+            // Get skills from the view and populate the edit form
+            const skillElements = document.querySelectorAll('#skillsView .skill-item');
+            skillElements.forEach(skill => {
+                const skillName = skill.querySelector('span').textContent;
+                const skillLevel = skill.dataset.level || 'intermediate';
+                
+                const skillElement = document.createElement('div');
+                skillElement.className = 'flex items-center justify-between bg-gray-800/50 p-3 rounded-lg border border-gray-700';
+                skillElement.dataset.id = skill.dataset.id;
+                skillElement.innerHTML = `
+                    <span class="text-white">${skillName}</span>
+                    <div class="flex items-center space-x-2">
+                        <select class="bg-gray-700 text-white text-sm rounded px-2 py-1 skill-level" ${skill.dataset.id ? '' : 'disabled'}>
+                            <option value="beginner" ${skillLevel === 'beginner' ? 'selected' : ''}>Beginner</option>
+                            <option value="intermediate" ${skillLevel === 'intermediate' ? 'selected' : ''}>Intermediate</option>
+                            <option value="advanced" ${skillLevel === 'advanced' ? 'selected' : ''}>Advanced</option>
+                            <option value="expert" ${skillLevel === 'expert' ? 'selected' : ''}>Expert</option>
+                        </select>
+                        <button class="text-red-400 hover:text-red-300 delete-skill">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `;
+                
+                skillsContainer.appendChild(skillElement);
+                
+                // Add delete event listener
+                skillElement.querySelector('.delete-skill').addEventListener('click', function() {
+                    skillElement.remove();
+                });
+            });
+        }
+        
+        async function saveSkills() {
+            try {
+                const skills = [];
+                const skillElements = document.querySelectorAll('#skillsList > div');
+                
+                skillElements.forEach((skillEl, index) => {
+                    const name = skillEl.querySelector('span').textContent;
+                    const level = skillEl.querySelector('select').value;
+                    skills.push({
+                        id: skillEl.dataset.id || `skill-${Date.now()}-${index}`,
+                        name: name.trim(),
+                        level: level,
+                        order: index
+                    });
+                });
+                
+                const authManager = new AuthManager();
+                const response = await fetch('/api/profile/skills', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authManager.getToken()}`
+                    },
+                    body: JSON.stringify({ skills })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showToast('Skills updated successfully!', 'success');
+                    // Update the view with the server-validated skills
+                    updateSkillsView(data.skills || skills);
+                    document.getElementById('skillsEditForm').classList.add('hidden');
+                    document.getElementById('skillsView').classList.remove('hidden');
+                } else {
+                    throw new Error(data.message || 'Failed to update skills');
+                }
+            } catch (error) {
+                console.error('Error saving skills:', error);
+                showToast(error.message || 'Failed to update skills. Please try again.', 'error');
+            }
+        }
+        
+        function updateSkillsView(skills) {
+            const skillsContainer = document.getElementById('skillsView');
+            skillsContainer.innerHTML = '';
+            
+            skills.sort((a, b) => a.order - b.order).forEach(skill => {
+                const skillElement = document.createElement('div');
+                skillElement.className = 'skill-item flex items-center justify-between';
+                skillElement.dataset.id = skill.id;
+                skillElement.dataset.level = skill.level;
+                
+                const levelColors = {
+                    'beginner': 'bg-blue-500',
+                    'intermediate': 'bg-green-500',
+                    'advanced': 'bg-yellow-500',
+                    'expert': 'bg-red-500'
+                };
+                
+                skillElement.innerHTML = `
+                    <div class="flex items-center space-x-3">
+                        <div class="w-3 h-3 rounded-full ${levelColors[skill.level] || 'bg-gray-500'}"></div>
+                        <span class="text-white">${skill.name}</span>
+                    </div>
+                    <span class="text-sm text-gray-400 capitalize">${skill.level}</span>
+                `;
+                
+                skillsContainer.appendChild(skillElement);
+            });
+            
+            // Add empty state if no skills
+            if (skills.length === 0) {
+                skillsContainer.innerHTML = `
+                    <div class="text-center py-4 text-gray-500">
+                        No skills added yet. Click "Edit" to add some!
+                    </div>
+                `;
+            }
+        }
+        
+        function updateSkillOrder() {
+            const skills = [];
+            document.querySelectorAll('#skillsList > div').forEach((el, index) => {
+                el.style.order = index;
+                skills.push({
+                    id: el.dataset.id,
+                    order: index
+                });
+            });
+            return skills;
+        }
+        
+        // Certification management functions (similar to skills)
+        function addNewCert() {
+            const input = document.getElementById('newCertInput');
+            const certName = input.value.trim();
+            
+            if (certName) {
+                const certId = 'cert-' + Date.now();
+                const certElement = document.createElement('div');
+                certElement.className = 'flex items-center justify-between bg-gray-800/50 p-3 rounded-lg border border-gray-700';
+                certElement.dataset.id = certId;
+                certElement.innerHTML = `
+                    <div class="flex-1">
+                        <input type="text" value="${certName}" class="w-full bg-transparent text-white border-b border-gray-600 focus:border-purple-500 focus:outline-none py-1" placeholder="Certification name">
+                        <input type="text" class="w-full bg-transparent text-gray-400 text-sm mt-1 border-b border-gray-700 focus:border-purple-500 focus:outline-none py-1" placeholder="Issuing organization">
+                        <div class="flex space-x-4 mt-2">
+                            <input type="month" class="bg-gray-800/50 text-white text-sm rounded px-2 py-1 w-1/2">
+                            <input type="month" class="bg-gray-800/50 text-white text-sm rounded px-2 py-1 w-1/2">
+                        </div>
+                    </div>
+                    <button class="text-red-400 hover:text-red-300 ml-4 delete-cert">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+                
+                document.getElementById('certsList').appendChild(certElement);
+                input.value = '';
+                
+                // Add delete event listener
+                certElement.querySelector('.delete-cert').addEventListener('click', function() {
+                    certElement.remove();
+                });
+            }
+        }
+        
+        function loadCertsForEditing() {
+            const certsContainer = document.getElementById('certsList');
+            certsContainer.innerHTML = '';
+            
+            // Get certs from the view and populate the edit form
+            const certElements = document.querySelectorAll('#certsView .cert-item');
+            certElements.forEach(cert => {
+                const certId = cert.dataset.id;
+                const title = cert.querySelector('h4').textContent;
+                const org = cert.querySelector('p').textContent.replace('Issued by ', '');
+                const date = cert.querySelector('span.text-sm').textContent;
+                
+                const certElement = document.createElement('div');
+                certElement.className = 'flex items-start justify-between bg-gray-800/50 p-3 rounded-lg border border-gray-700';
+                certElement.dataset.id = certId;
+                certElement.innerHTML = `
+                    <div class="flex-1">
+                        <input type="text" value="${title}" class="w-full bg-transparent text-white border-b border-gray-600 focus:border-purple-500 focus:outline-none py-1" placeholder="Certification name">
+                        <input type="text" value="${org}" class="w-full bg-transparent text-gray-400 text-sm mt-1 border-b border-gray-700 focus:border-purple-500 focus:outline-none py-1" placeholder="Issuing organization">
+                        <div class="flex space-x-4 mt-2">
+                            <input type="month" value="${date.split(' - ')[0]}-01" class="bg-gray-800/50 text-white text-sm rounded px-2 py-1 w-1/2">
+                            <input type="month" value="${date.includes('Present') ? new Date().toISOString().substring(0, 7) : date.split(' - ')[1]}-01" class="bg-gray-800/50 text-white text-sm rounded px-2 py-1 w-1/2">
+                        </div>
+                    </div>
+                    <button class="text-red-400 hover:text-red-300 ml-4 delete-cert">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                `;
+                
+                certsContainer.appendChild(certElement);
+                
+                // Add delete event listener
+                certElement.querySelector('.delete-cert').addEventListener('click', function() {
+                    certElement.remove();
+                });
+            });
+        }
+        
+        async function saveCerts() {
+            try {
+                const certs = [];
+                const certElements = document.querySelectorAll('#certsList > div');
+                
+                certElements.forEach((certEl, index) => {
+                    const inputs = certEl.querySelectorAll('input');
+                    const title = inputs[0]?.value.trim();
+                    const organization = inputs[1]?.value.trim();
+                    const issueDate = inputs[2]?.value || new Date().toISOString().split('T')[0];
+                    const expiryDate = inputs[3]?.value || null;
+                    
+                    if (title && organization) {
+                        certs.push({
+                            id: certEl.dataset.id || `cert-${Date.now()}-${index}`,
+                            title: title,
+                            organization: organization,
+                            issueDate: issueDate,
+                            expiryDate: expiryDate,
+                            order: index
+                        });
+                    }
+                });
+                
+                const authManager = new AuthManager();
+                const response = await fetch('/api/profile/certifications', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${authManager.getToken()}`
+                    },
+                    body: JSON.stringify({ certifications: certs })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showToast('Certifications updated successfully!', 'success');
+                    // Update the view with the server-validated certs
+                    updateCertsView(data.certifications || certs);
+                    document.getElementById('certsEditForm').classList.add('hidden');
+                    document.getElementById('certsView').classList.remove('hidden');
+                } else {
+                    throw new Error(data.message || 'Failed to update certifications');
+                }
+            } catch (error) {
+                console.error('Error saving certifications:', error);
+                showToast(error.message || 'Failed to update certifications. Please try again.', 'error');
+            }
+        }
+        
+        function updateCertsView(certs) {
+            const certsContainer = document.getElementById('certsView');
+            certsContainer.innerHTML = '';
+            
+            certs.sort((a, b) => new Date(b.startDate) - new Date(a.startDate)).forEach(cert => {
+                const certElement = document.createElement('div');
+                certElement.className = 'cert-item bg-gray-800/30 p-4 rounded-lg border border-gray-700';
+                certElement.dataset.id = cert.id;
+                
+                const startDate = new Date(cert.startDate);
+                const endDate = cert.endDate ? new Date(cert.endDate) : null;
+                const dateString = `${startDate.toLocaleString('default', { month: 'short', year: 'numeric' })} - ${endDate ? endDate.toLocaleString('default', { month: 'short', year: 'numeric' }) : 'Present'}`;
+                
+                certElement.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h4 class="text-white font-medium">${cert.title}</h4>
+                            <p class="text-gray-400 text-sm">Issued by ${cert.organization}</p>
+                        </div>
+                        <span class="text-sm text-gray-500">${dateString}</span>
+                    </div>
+                `;
+                
+                certsContainer.appendChild(certElement);
+            });
+            
+            // Add empty state if no certs
+            if (certs.length === 0) {
+                certsContainer.innerHTML = `
+                    <div class="text-center py-4 text-gray-500">
+                        No certifications added yet. Click "Edit" to add some!
+                    </div>
+                `;
+            }
+        }
+        
+        function updateCertOrder() {
+            const certs = [];
+            document.querySelectorAll('#certsList > div').forEach((el, index) => {
+                el.style.order = index;
+                certs.push({
+                    id: el.dataset.id,
+                    order: index
+                });
+            });
+            return certs;
+        }
+        
+        // Initialize progress chart function
+        function initProgressChart(solved = 150, total = 200) {
+            const canvas = document.getElementById('progressChart');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            const centerX = canvas.width / 2;
+            const centerY = canvas.height / 2;
+            const radius = 80;
+            const percentage = total > 0 ? (solved / total) : 0.75;
+            
+            // Clear canvas
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Draw background circle
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
+            ctx.strokeStyle = '#374151';
+            ctx.lineWidth = 8;
+            ctx.stroke();
+            
+            // Draw progress arc
+            if (percentage > 0) {
+                ctx.beginPath();
+                ctx.arc(centerX, centerY, radius, -Math.PI / 2, (-Math.PI / 2) + (Math.PI * 2 * percentage));
+                ctx.strokeStyle = '#8b5cf6';
+                ctx.lineWidth = 8;
+                ctx.lineCap = 'round';
+                ctx.stroke();
+            }
+        }
+        
+        // Initialize network background animation
+        function initNetworkBackground() {
+            const canvas = document.getElementById('networkCanvas');
+            if (!canvas) return;
+            
+            const ctx = canvas.getContext('2d');
+            
+            // Set canvas size
+            function resizeCanvas() {
+                canvas.width = canvas.offsetWidth;
+                canvas.height = canvas.offsetHeight;
+            }
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            
+            // Network nodes
+            const nodes = [];
+            const nodeCount = 50;
+            
+            // Create nodes
+            for (let i = 0; i < nodeCount; i++) {
+                nodes.push({
+                    x: Math.random() * canvas.width,
+                    y: Math.random() * canvas.height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    radius: Math.random() * 3 + 1
+                });
+            }
+            
+            // Animation loop
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Update and draw nodes
+                nodes.forEach((node, i) => {
+                    // Update position
+                    node.x += node.vx;
+                    node.y += node.vy;
+                    
+                    // Bounce off edges
+                    if (node.x < 0 || node.x > canvas.width) node.vx *= -1;
+                    if (node.y < 0 || node.y > canvas.height) node.vy *= -1;
+                    
+                    // Draw node
+                    ctx.beginPath();
+                    ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
+                    ctx.fillStyle = `rgba(139, 92, 246, ${0.3 + Math.random() * 0.4})`;
+                    ctx.fill();
+                    
+                    // Draw connections
+                    nodes.forEach((otherNode, j) => {
+                        if (i !== j) {
+                            const dx = node.x - otherNode.x;
+                            const dy = node.y - otherNode.y;
+                            const distance = Math.sqrt(dx * dx + dy * dy);
+                            if (distance < 100) {
+                                ctx.beginPath();
+                                ctx.moveTo(node.x, node.y);
+                                ctx.lineTo(otherNode.x, otherNode.y);
+                                ctx.strokeStyle = `rgba(139, 92, 246, ${0.1 * (1 - distance / 100)})`;
+                                ctx.lineWidth = 1;
+                                ctx.stroke();
+                            }
+                        }
+                    });
+                });
+                
+                requestAnimationFrame(animate);
+            }
+            animate();
+        }
+
+    </script>
+</body>
+</html>
