@@ -1,53 +1,37 @@
 <!DOCTYPE html>
-<html lang="en-IN" class="dark">
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ConnectSphere - Your Tech Career Network in South India</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1on1 - Connect with Professionals</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
   <script>
     tailwind.config = {
-      darkMode: 'class',
       theme: {
         extend: {
           colors: {
-            primary: {
-              600: '#EA580C',
-              700: '#C2410C',
-            },
-            dark: {
-              900: '#0F172A',
-              800: '#1E293B',
-              700: '#334155',
-              600: '#475569',
-            },
+            primary: '#3B82F6',
+            secondary: '#10B981',
+            dark: '#1F2937',
+            light: '#F9FAFB',
           },
           fontFamily: {
             sans: ['Inter', 'sans-serif'],
-          },
-          animation: {
-            'float': 'float 6s ease-in-out infinite',
-            'gradient': 'gradient 8s ease infinite',
-          },
-          keyframes: {
-            float: {
-              '0%, 100%': { transform: 'translateY(0)' },
-              '50%': { transform: 'translateY(-10px)' },
-            },
-            gradient: {
-              '0%, 100%': { 'background-position': '0% 50%' },
-              '50%': { 'background-position': '100% 50%' },
-            },
           },
         },
       },
     }
   </script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+    }
+    .hero-gradient {
+      background: linear-gradient(135deg, #3B82F6 0%, #10B981 100%);
+    }
+  </style>
   <meta name="description" content="Connect with peers and mentors from top institutions across South India. Your journey to a successful tech career starts here." />
   <style>
     html {
@@ -150,11 +134,253 @@
     @keyframes hue { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
   </style>
 </head>
-<body class="min-h-screen text-white bg-[#0B1020]">
-  <!-- Glowing gradient background -->
-  <div class="fixed inset-0 -z-20 bg-gradient-to-br from-[#0D1321] via-[#0B1020] to-[#032B3A]"></div>
+<body class="min-h-screen bg-gray-50">
+  <!-- Navigation -->
+  <nav class="bg-white shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex justify-between h-16">
+        <div class="flex items-center">
+          <span class="text-xl font-bold text-primary">1on1</span>
+        </div>
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="#" class="text-gray-700 hover:text-primary px-3 py-2 text-sm font-medium">Home</a>
+          <a href="#features" class="text-gray-700 hover:text-primary px-3 py-2 text-sm font-medium">Features</a>
+          <a href="#how-it-works" class="text-gray-700 hover:text-primary px-3 py-2 text-sm font-medium">How it Works</a>
+          <a href="#testimonials" class="text-gray-700 hover:text-primary px-3 py-2 text-sm font-medium">Testimonials</a>
+        </div>
+        <div class="flex items-center space-x-4">
+          <a href="login.html" class="text-gray-700 hover:text-primary px-4 py-2 text-sm font-medium">Log in</a>
+          <a href="signup.html" class="bg-primary text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-opacity-90 transition">Sign up</a>
+        </div>
+      </div>
+    </div>
+  </nav>
 
-  <!-- Hero scene background elements -->
+  <!-- Hero Section -->
+  <div class="hero-gradient text-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="lg:grid lg:grid-cols-2 lg:gap-8 items-center">
+        <div class="mb-12 lg:mb-0">
+          <h1 class="text-4xl md:text-5xl font-bold leading-tight mb-6">Connect with Industry Experts for 1:1 Mentorship</h1>
+          <p class="text-xl mb-8 text-blue-100">Book personalized sessions with top professionals and accelerate your career growth.</p>
+          <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+            <a href="#" class="bg-white text-primary px-8 py-3 rounded-md font-medium text-center hover:bg-opacity-90 transition">Get Started</a>
+            <a href="#" class="border-2 border-white text-white px-8 py-3 rounded-md font-medium text-center hover:bg-white hover:bg-opacity-10 transition">Learn More</a>
+          </div>
+        </div>
+        <div class="relative">
+          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="Mentorship" class="rounded-lg shadow-2xl">
+          <div class="absolute -bottom-4 -right-4 bg-white p-4 rounded-lg shadow-lg">
+            <div class="flex items-center">
+              <div class="bg-green-100 p-2 rounded-full mr-3">
+                <i class="fas fa-check-circle text-green-500 text-xl"></i>
+              </div>
+              <div>
+                <p class="text-sm text-gray-500">Success Rate</p>
+                <p class="font-bold text-gray-800">98%</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <section id="features" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Why Choose 1on1?</h2>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">We connect you with industry experts who can help you grow professionally and personally.</p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
+          <div class="bg-blue-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-user-tie text-blue-500 text-xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-gray-900">Expert Mentors</h3>
+          <p class="text-gray-600">Connect with verified professionals from top companies and industries.</p>
+        </div>
+        
+        <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
+          <div class="bg-green-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-calendar-check text-green-500 text-xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-gray-900">Flexible Scheduling</h3>
+          <p class="text-gray-600">Book sessions at your convenience with our easy scheduling system.</p>
+        </div>
+        
+        <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition">
+          <div class="bg-purple-100 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+            <i class="fas fa-lock text-purple-500 text-xl"></i>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-gray-900">Secure Platform</h3>
+          <p class="text-gray-600">Your privacy and security are our top priorities.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works -->
+  <section id="how-it-works" class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">How It Works</h2>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">Get started in just a few simple steps.</p>
+      </div>
+      
+      <div class="grid md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+            <span class="text-2xl font-bold text-primary">1</span>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-gray-900">Create Profile</h3>
+          <p class="text-gray-600">Sign up and create your profile in minutes.</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+            <span class="text-2xl font-bold text-primary">2</span>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-gray-900">Find a Mentor</h3>
+          <p class="text-gray-600">Browse and connect with experts in your field.</p>
+        </div>
+        
+        <div class="text-center">
+          <div class="bg-white w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 shadow-md">
+            <span class="text-2xl font-bold text-primary">3</span>
+          </div>
+          <h3 class="text-xl font-semibold mb-2 text-gray-900">Start Learning</h3>
+          <p class="text-gray-600">Schedule and attend your first session.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section id="testimonials" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">What Our Users Say</h2>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">Hear from professionals who have transformed their careers with 1on1.</p>
+      </div>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div class="bg-gray-50 p-6 rounded-xl">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
+            <div>
+              <h4 class="font-semibold">Sarah Johnson</h4>
+              <p class="text-sm text-gray-500">Software Engineer</p>
+            </div>
+          </div>
+          <p class="text-gray-600">"The mentorship I received helped me land my dream job at a top tech company. Highly recommended!"</p>
+          <div class="flex mt-4 text-yellow-400">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+        
+        <div class="bg-gray-50 p-6 rounded-xl">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
+            <div>
+              <h4 class="font-semibold">Michael Chen</h4>
+              <p class="text-sm text-gray-500">Product Manager</p>
+            </div>
+          </div>
+          <p class="text-gray-600">"Incredible platform for connecting with experienced professionals. The insights I gained were invaluable."</p>
+          <div class="flex mt-4 text-yellow-400">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="far fa-star"></i>
+          </div>
+        </div>
+        
+        <div class="bg-gray-50 p-6 rounded-xl md:col-span-2 lg:col-span-1">
+          <div class="flex items-center mb-4">
+            <div class="w-12 h-12 bg-gray-300 rounded-full mr-4"></div>
+            <div>
+              <h4 class="font-semibold">David Rodriguez</h4>
+              <p class="text-sm text-gray-500">UX Designer</p>
+            </div>
+          </div>
+          <p class="text-gray-600">"As a mentor, I've found great satisfaction in helping others grow in their careers. The platform makes it easy to connect with mentees."</p>
+          <div class="flex mt-4 text-yellow-400">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star-half-alt"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 bg-primary text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="text-3xl font-bold mb-6">Ready to Grow Your Career?</h2>
+      <p class="text-xl mb-8 max-w-3xl mx-auto">Join thousands of professionals who have accelerated their careers with 1on1 mentorship.</p>
+      <div class="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+        <a href="signup.html" class="bg-white text-primary px-8 py-3 rounded-md font-medium hover:bg-opacity-90 transition">Get Started for Free</a>
+        <a href="#" class="border-2 border-white text-white px-8 py-3 rounded-md font-medium hover:bg-white hover:bg-opacity-10 transition">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Company</h3>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-400 hover:text-white">About Us</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white">Careers</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white">Press</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Resources</h3>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-400 hover:text-white">Help Center</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white">Become a Mentor</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white">Pricing</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white">FAQ</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Legal</h3>
+          <ul class="space-y-2">
+            <li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+            <li><a href="#" class="text-gray-400 hover:text-white">Cookie Policy</a></li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="text-lg font-semibold mb-4">Connect</h3>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-twitter text-xl"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-linkedin text-xl"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-facebook text-xl"></i></a>
+            <a href="#" class="text-gray-400 hover:text-white"><i class="fab fa-instagram text-xl"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+        <p>&copy; 2023 1on1. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
   <div class="hero-bg -z-10" aria-hidden="true">
     <div class="blob blob--1"></div>
     <div class="blob blob--2"></div>
