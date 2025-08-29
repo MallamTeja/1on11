@@ -25,7 +25,7 @@ app.get('/health', async (req, res) => {
 });
 
 // Handle all other routes by serving index.html (Express 5-compatible catch-all)
-app.get('/:path(*)', (req, res) => {
+app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
