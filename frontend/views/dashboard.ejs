@@ -1,0 +1,144 @@
+<%- include('partials/header', { title: 'Dashboard - SkillExchange', user }) %>
+
+<!-- Dashboard Content -->
+<div class="container mx-auto px-4 py-8">
+    <!-- Welcome Section -->
+    <div class="mb-6 flex justify-between items-center">
+        <div>
+            <h1 class="text-4xl font-bold mb-2">Welcome back, <%= user?.name || 'User' %>!</h1>
+            <p class="text-gray-400">Continue your learning journey with SkillExchange</p>
+        </div>
+        <div class="flex items-center space-x-4">
+            <a href="<%= isExploreView ? '/dashboard' : '/explore' %>" 
+               class="px-4 py-2 <%= isExploreView ? 'bg-blue-700 hover:bg-blue-800' : 'bg-purple-700 hover:bg-purple-800' %> rounded-lg transition-colors">
+                <%= isExploreView ? 'Back to My Dashboard' : 'View Public Profiles' %>
+            </a>
+        </div>
+    </div>
+
+    <% if (isExploreView) { %>
+        <!-- Explore Users Section -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold mb-6">Explore Top Users</h2>
+            <div class="grid md:grid-cols-3 gap-6">
+                <% topUsers.forEach(user => { %>
+                    <div class="bg-blue-900/20 backdrop-blur-sm border border-blue-800 rounded-xl p-6">
+                        <div class="flex items-center space-x-4 mb-4">
+                            <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center text-2xl font-bold">
+                                <%= user.name.split(' ').map(n => n[0]).join('').toUpperCase() %>
+                            </div>
+                            <div>
+                                <h3 class="text-xl font-semibold"><%= user.name %></h3>
+                                <p class="text-blue-300"><%= user.role || 'Member' %></p>
+                            </div>
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-gray-400">Courses:</span>
+                                <span class="font-medium"><%= user.coursesCompleted || 0 %>/<%= user.coursesEnrolled || 0 %></span>
+                            </div>
+                            <div class="w-full bg-gray-700 rounded-full h-2">
+                                <% const progress = user.coursesEnrolled ? (user.coursesCompleted / user.coursesEnrolled * 100) : 0; %>
+                                <div class="bg-blue-500 h-2 rounded-full" style="width: <%= progress %>%"></div>
+                            </div>
+                        </div>
+                        <% if (user.skills && user.skills.length > 0) { %>
+                            <div class="mt-4">
+                                <div class="flex justify-between text-sm mb-1">
+                                    <span class="text-gray-400">Skills:</span>
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    <% user.skills.slice(0, 3).forEach(skill => { %>
+                                        <span class="px-2 py-1 bg-blue-600/30 text-blue-300 text-xs rounded-full">
+                                            <%= skill %>
+                                        </span>
+                                    <% }) %>
+                                </div>
+                            </div>
+                        <% } %>
+                    </div>
+                <% }) %>
+            </div>
+        </div>
+    <% } else { %>
+        <!-- User Stats -->
+        <div class="grid md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-blue-900/20 backdrop-blur-sm border border-blue-800 rounded-xl p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-400 text-sm">Courses Completed</p>
+                        <p class="text-2xl font-bold text-white"><%= user.coursesCompleted || 0 %></p>
+                    </div>
+                    <div class="w-12 h-12 bg-green-600/20 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-check-circle text-green-400 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-blue-900/20 backdrop-blur-sm border border-blue-800 rounded-xl p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-400 text-sm">Hours Learned</p>
+                        <p class="text-2xl font-bold text-white"><%= user.hoursLearned || 0 %></p>
+                    </div>
+                    <div class="w-12 h-12 bg-blue-600/20 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-clock text-blue-400 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-blue-900/20 backdrop-blur-sm border border-blue-800 rounded-xl p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-400 text-sm">Current Streak</p>
+                        <p class="text-2xl font-bold text-white"><%= user.streak || 0 %> days</p>
+                    </div>
+                    <div class="w-12 h-12 bg-orange-600/20 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-fire text-orange-400 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-blue-900/20 backdrop-blur-sm border border-blue-800 rounded-xl p-6">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-gray-400 text-sm">Certificates</p>
+                        <p class="text-2xl font-bold text-white"><%= user.certificates || 0 %></p>
+                    </div>
+                    <div class="w-12 h-12 bg-purple-600/20 rounded-lg flex items-center justify-center">
+                        <i class="fas fa-certificate text-purple-400 text-xl"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Section -->
+        <div class="mb-8">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-2xl font-bold">Your Progress</h2>
+                <button id="viewInsightsBtn" class="text-blue-400 hover:text-blue-300 text-sm flex items-center">
+                    View Detailed Insights <i class="fas fa-arrow-right ml-2"></i>
+                </button>
+            </div>
+            <div class="bg-blue-900/20 backdrop-blur-sm border border-blue-800 rounded-xl p-6">
+                <% if (user.coursesCompleted > 0) { %>
+                    <!-- Progress chart would go here -->
+                    <div class="h-64 flex items-center justify-center">
+                        <p class="text-gray-400">Progress chart will be displayed here</p>
+                    </div>
+                <% } else { %>
+                    <div class="text-center py-8">
+                        <i class="fas fa-chart-line text-4xl text-blue-400 mb-4 opacity-50"></i>
+                        <h3 class="text-xl font-semibold mb-2">No Activity Yet</h3>
+                        <p class="text-gray-400 mb-4">Start learning to see your progress and achievements</p>
+                        <a href="/courses" class="inline-block px-6 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition-colors">
+                            Explore Courses
+                        </a>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+    <% } %>
+</div>
+
+<%- include('partials/footer') %>
