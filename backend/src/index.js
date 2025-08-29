@@ -1,9 +1,8 @@
-import express, { Request, Response } from 'express';
-import cors, { CorsOptions } from 'cors';
-import './config'; // loads environment variables
-import { searchWithSerper } from './serper-service';
-import { searchWithGemini } from './gemini-service';
-import type { SearchResult } from './types';
+import express from 'express';
+import cors from 'cors';
+import './config.js'; // loads environment variables
+import { searchWithSerper } from './serper-service.js';
+import { searchWithGemini } from './gemini-service.js';
 
 const app = express();
 
@@ -12,8 +11,8 @@ const allowlist = (process.env.ORIGIN_ALLOWLIST || '')
   .map((s) => s.trim())
   .filter(Boolean);
 
-const corsOptions: CorsOptions = {
-  origin: (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) => {
+const corsOptions = {
+  origin: (origin, callback) => {
     if (!origin) return callback(null, true); // allow non-browser clients
     if (allowlist.length === 0 || allowlist.includes(origin)) {
       return callback(null, true);
@@ -26,7 +25,7 @@ const corsOptions: CorsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-app.get('/', (_req: Request, res: Response) => {
+app.get('/', (_req, res) => {
   res.type('text/html').send(`<!doctype html>
 <html lang="en">
 <head>
@@ -49,13 +48,13 @@ app.get('/', (_req: Request, res: Response) => {
 </html>`);
 });
 
-app.get('/api/health', (_req: Request, res: Response) => {
+app.get('/api/health', (_req, res) => {
   res.json({ status: 'ok' });
 });
 
 // Resource Finder API
 // Example: /api/resources?q=java%20loops&type=all&difficulty=all&indianOnly=true
-app.get('/api/resources', async (req: Request, res: Response) => {
+app.get('/api/resources', async (req, res) => {
   const q = String(req.query.q || '').trim();
   const type = String(req.query.type || 'all').toLowerCase();
   const difficulty = String(req.query.difficulty || 'all').toLowerCase();
@@ -68,12 +67,12 @@ app.get('/api/resources', async (req: Request, res: Response) => {
     const serperResults = await searchWithSerper(q, type === 'all' ? undefined : type, difficulty);
 
     // Try Gemini enrichment (best-effort, ignored on failure)
-    let mappedGemini: SearchResult[] = [];
+    let mappedGemini = [];
     try {
       const gemini = await searchWithGemini(q);
       mappedGemini = (gemini || []).map((g) => {
         // map Gemini result types to our SearchResult type
-        let mappedType: SearchResult['type'] = 'article';
+        let mappedType = 'article';
         const t = (g.type || '').toLowerCase();
         if (t.includes('video')) mappedType = 'youtube';
         if (t.includes('paper') || g.fileType === 'PDF') mappedType = 'pdf';
@@ -86,15 +85,15 @@ app.get('/api/resources', async (req: Request, res: Response) => {
           type: mappedType,
           downloadUrl: g.downloadUrl,
           fileType: g.fileType,
-        } as SearchResult;
+        };
       });
     } catch (e) {
-      console.warn('Gemini enrichment failed:', (e as Error).message);
+      console.warn('Gemini enrichment failed:', (e && e.message) || e);
     }
 
     // Merge and deduplicate by URL/title
-    const merged: SearchResult[] = [...serperResults, ...mappedGemini];
-    const seen = new Set<string>();
+    const merged = [...serperResults, ...mappedGemini];
+    const seen = new Set();
     const dedup = merged.filter((r) => {
       const key = (r.url || r.title || '').toLowerCase();
       if (!key) return false;
@@ -103,7 +102,7 @@ app.get('/api/resources', async (req: Request, res: Response) => {
       return true;
     });
 
-    const isIndianSource = (r: SearchResult) => {
+    const isIndianSource = (r) => {
       if (!r.url) return false;
       try {
         const host = new URL(r.url).hostname.toLowerCase();
@@ -128,7 +127,7 @@ app.get('/api/resources', async (req: Request, res: Response) => {
 
     const filtered = indianOnly ? dedup.filter(isIndianSource) : dedup;
 
-    const isCourse = (r: SearchResult) => {
+    const isCourse = (r) => {
       if (!r.url) return false;
       try {
         const host = new URL(r.url).hostname.toLowerCase();
@@ -141,7 +140,7 @@ app.get('/api/resources', async (req: Request, res: Response) => {
       } catch { return false; }
     };
 
-    const isRepo = (r: SearchResult) => {
+    const isRepo = (r) => {
       if (!r.url) return false;
       try {
         const host = new URL(r.url).hostname.toLowerCase();
@@ -173,8 +172,8 @@ app.get('/api/resources', async (req: Request, res: Response) => {
       },
       latencyMs: Date.now() - started,
     });
-  } catch (err: any) {
-    res.status(500).json({ error: err.message || 'Search failed' });
+  } catch (err) {
+    res.status(500).json({ error: (err && err.message) || 'Search failed' });
   }
 });
 

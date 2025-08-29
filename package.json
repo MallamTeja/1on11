@@ -4,11 +4,12 @@
   "description": "SkillSync - Academic and Mentorship Platform for India",
   "main": "src/index.js",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "serve": "npx serve -s build -l 3000"
+    "start": "node frontend/server.js",
+    "server": "cd backend && npm run dev",
+    "client": "node frontend/server.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "install-all": "npm install && cd backend && npm install",
+    "build": "cd backend && npm run build"
   },
   "keywords": [
     "education",
@@ -21,6 +22,7 @@
   "author": "SkillSync Team",
   "license": "MIT",
   "dependencies": {
+    "express": "^4.18.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.0",

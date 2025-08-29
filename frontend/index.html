@@ -1,65 +1,205 @@
 <!DOCTYPE html>
-<html lang="en-IN">
+<html lang="en-IN" class="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SkillSync – Learn Faster. Connect Smarter. Mentor Freely.</title>
+  <title>ConnectSphere - Your Tech Career Network in South India</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: {
+              600: '#EA580C',
+              700: '#C2410C',
+            },
+            dark: {
+              900: '#0F172A',
+              800: '#1E293B',
+              700: '#334155',
+              600: '#475569',
+            },
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'gradient': 'gradient 8s ease infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            gradient: {
+              '0%, 100%': { 'background-position': '0% 50%' },
+              '50%': { 'background-position': '100% 50%' },
+            },
+          },
+        },
+      },
+    }
+  </script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-  <link rel="icon" type="image/x-icon" href="../favicon.ico" />
-  <meta name="description" content="India-first academic mentorship platform with AI resource finder, peer skill exchange, and paid expert sessions in ₹, time in IST." />
+  <link rel="icon" type="image/x-icon" href="favicon.ico" />
+  <meta name="description" content="Connect with peers and mentors from top institutions across South India. Your journey to a successful tech career starts here." />
   <style>
-    body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      background-color: #0F172A;
+      color: #E2E8F0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    .gradient-text {
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      background-image: linear-gradient(to right, #f97316, #ef4444);
+    }
+    .glass-card {
+      background: rgba(30, 41, 59, 0.5);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 0.75rem;
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+    }
+    .btn-primary {
+      background-image: linear-gradient(to right, #ea580c, #dc2626);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: 9999px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+      background-image: linear-gradient(to right, #c2410c, #b91c1c);
+      transform: translateY(-2px);
+    }
+    .btn-outline {
+      border: 2px solid #ea580c;
+      color: #ea580c;
+      padding: 0.75rem 1.5rem;
+      border-radius: 9999px;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+    .btn-outline:hover {
+      background-color: rgba(234, 88, 12, 0.1);
+    }
+  </style>
+
+    /* Accent ring pulse */
+    .ring-pulse {
+      box-shadow: 0 0 0 0 rgba(234, 88, 12, 0.6);
+      animation: ringPulse 2.2s ease-in-out infinite;
+    }
+    @keyframes ringPulse {
+      0% { box-shadow: 0 0 0 0 rgba(234, 88, 12, 0.55); }
+      70% { box-shadow: 0 0 0 18px rgba(234, 88, 12, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(234, 88, 12, 0); }
+    }
+
+    /* Shine effect for buttons */
+    .shine {
+      position: relative;
+      overflow: hidden;
+    }
+    .shine::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: -150%;
+      width: 120%;
+      transform: skewX(-20deg);
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.15),
+        transparent
+      );
+      animation: shine 3.5s ease-in-out infinite;
+    }
+    @keyframes shine {
+      0% { left: -150%; }
+      60% { left: 150%; }
+      100% { left: 150%; }
+    }
+
+    /* Card lift */
+    .lift { transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s; }
+    .lift:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,0,0,.25); }
+
+    /* Gradient text animate */
+    .grad-text {
+      background: linear-gradient(120deg, #fff, #7dd3fc, #5eead4, #fff);
+      background-size: 200% 200%;
+      -webkit-background-clip: text; background-clip: text; color: transparent;
+      animation: hue 9s ease-in-out infinite;
+    }
+    @keyframes hue { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
   </style>
 </head>
-<body class="min-h-screen text-[#1F2937] bg-gradient-to-br from-[#0D1321] via-[#0D1321] to-[#155E75]">
-  <!-- Tints & accents background layer -->
-  <div class="fixed inset-0 -z-10 pointer-events-none" aria-hidden="true">
-    <div class="absolute inset-0 bg-[#FAF7F2]/30 mix-blend-soft-light"></div>
-    <div class="absolute -top-24 -left-24 w-[40rem] h-[40rem] rounded-full bg-[#F4A300]/10 blur-3xl"></div>
-    <div class="absolute -bottom-24 -right-24 w-[36rem] h-[36rem] rounded-full bg-[#155E75]/20 blur-3xl"></div>
+<body class="min-h-screen text-white bg-[#0B1020]">
+  <!-- Glowing gradient background -->
+  <div class="fixed inset-0 -z-20 bg-gradient-to-br from-[#0D1321] via-[#0B1020] to-[#032B3A]"></div>
+
+  <!-- Hero scene background elements -->
+  <div class="hero-bg -z-10" aria-hidden="true">
+    <div class="blob blob--1"></div>
+    <div class="blob blob--2"></div>
+    <div class="blob blob--3"></div>
+    <div class="grid-overlay"></div>
   </div>
 
   <!-- Navigation -->
   <header class="sticky top-0 z-40">
     <nav class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <div class="mt-4 mb-4 flex items-center justify-between rounded-2xl border border-white/20 bg-white/60 backdrop-blur-xl shadow-[0_8px_24px_rgba(13,19,33,0.12)]">
+      <div class="mt-4 mb-4 flex items-center justify-between rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl shadow-[0_8px_24px_rgba(0,0,0,0.25)]">
         <div class="flex items-center gap-3 px-4 py-3">
-          <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-[#F4A300] text-[#0D1321] shadow" aria-hidden="true">
+          <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--brand)] text-[#0D1321] shadow ring-pulse" aria-hidden="true">
             <i class="fa-solid fa-graduation-cap text-lg"></i>
           </div>
-          <span class="text-lg sm:text-xl font-bold tracking-tight text-[#0D1321]">SkillSync</span>
+          <span class="text-lg sm:text-xl font-bold tracking-tight">SkillSync</span>
         </div>
         <div class="hidden md:flex items-center gap-2 text-sm font-medium">
-          <a href="./dashboard.html" class="px-3 py-2 rounded-xl text-[#155E75] hover:bg-[#155E75]/10">Dashboard</a>
-          <a href="./search.html" class="px-3 py-2 rounded-xl text-[#155E75] hover:bg-[#155E75]/10">Resource Finder</a>
-          <a href="#network" class="px-3 py-2 rounded-xl text-[#155E75] hover:bg-[#155E75]/10">Network</a>
+          <a href="./dashboard.html" class="px-3 py-2 rounded-xl text-cyan-300/90 hover:bg-white/10">Dashboard</a>
+          <a href="./search.html" class="px-3 py-2 rounded-xl text-cyan-300/90 hover:bg-white/10">Resource Finder</a>
+          <a href="#network" class="px-3 py-2 rounded-xl text-cyan-300/90 hover:bg-white/10">Network</a>
         </div>
         <div class="flex items-center gap-2 px-4 py-2">
-          <a href="./login.html" class="px-4 py-2 rounded-xl text-[#155E75] hover:bg-[#155E75]/10">Login</a>
-          <a href="./signup.html" class="px-4 py-2 rounded-2xl bg-[#F4A300] text-[#0D1321] hover:bg-[#DC9200] font-semibold shadow-sm">Join Free</a>
+          <a href="./login.html" class="px-4 py-2 rounded-xl text-cyan-300/90 hover:bg-white/10">Login</a>
+          <a href="./signup.html" class="shine px-4 py-2 rounded-2xl bg-[var(--brand)] text-[#0D1321] hover:bg-[var(--brand-2)] font-semibold shadow-sm">Join Free</a>
         </div>
       </div>
     </nav>
   </header>
 
   <!-- Hero -->
-  <section class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 sm:py-24">
-    <div class="mx-auto max-w-3xl text-center">
-      <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white">
+  <section class="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 sm:pt-24 pb-10">
+    <div class="relative mx-auto max-w-3xl text-center">
+      <div class="absolute -top-16 left-1/2 -translate-x-1/2 w-44 h-44 rounded-full bg-teal-400/10 blur-3xl pointer-events-none" aria-hidden="true"></div>
+      <h1 class="grad-text text-4xl sm:text-6xl md:text-7xl font-extrabold tracking-tight">
         Learn Faster. Connect Smarter. Mentor Freely.
       </h1>
       <p class="mt-6 text-lg sm:text-xl text-white/80">
         India’s platform for AI-powered learning, peer skill exchange, and expert mentorship. Prices in ₹, time in IST.
       </p>
       <div class="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
-        <a href="./signup.html" class="inline-flex items-center justify-center rounded-2xl bg-[#F4A300] px-8 py-3 text-base sm:text-lg font-semibold text-[#0D1321] shadow hover:bg-[#DC9200]">
+        <a href="./signup.html" class="shine inline-flex items-center justify-center rounded-2xl bg-[var(--brand)] px-8 py-3 text-base sm:text-lg font-semibold text-[#0D1321] shadow hover:bg-[var(--brand-2)]">
           Join as a Student
         </a>
-        <a href="./dashboard.html" class="inline-flex items-center justify-center rounded-2xl border border-white/30 bg-white/20 px-8 py-3 text-base sm:text-lg font-semibold text-white hover:bg-white/30">
+        <a href="./dashboard.html" class="inline-flex items-center justify-center rounded-2xl border border-white/20 bg-white/10 px-8 py-3 text-base sm:text-lg font-semibold text-white hover:bg-white/15">
           Explore Mentors
         </a>
       </div>
@@ -74,56 +214,56 @@
     </div>
   </section>
 
-  <!-- Features -->
+  <!-- Feature badges -->
   <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pb-8">
     <div class="grid gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-4">
-      <div class="rounded-2xl border border-white/25 bg-white/60 backdrop-blur-xl p-6 shadow-[0_8px_24px_rgba(13,19,33,0.12)] hover:translate-y-[-2px] hover:shadow-[0_10px_28px_rgba(13,19,33,0.16)] transition">
-        <div class="h-12 w-12 rounded-xl bg-[#155E75]/15 text-[#155E75] flex items-center justify-center mb-4"><i class="fa-solid fa-people-arrows"></i></div>
-        <h3 class="text-lg font-semibold text-[#0D1321]">Peer Skill Exchange</h3>
-        <p class="mt-2 text-sm text-[#64748B]">Swap strengths with peers—teach DSA, learn ML. Build credibility and connections.</p>
+      <div class="lift rounded-2xl border border-white/15 bg-white/10 backdrop-blur-xl p-6 shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
+        <div class="h-12 w-12 rounded-xl bg-teal-500/15 text-teal-300 flex items-center justify-center mb-4"><i class="fa-solid fa-people-arrows"></i></div>
+        <h3 class="text-lg font-semibold">Peer Skill Exchange</h3>
+        <p class="mt-2 text-sm text-white/70">Swap strengths with peers—teach DSA, learn ML. Build credibility and connections.</p>
       </div>
-      <div class="rounded-2xl border border-white/25 bg-white/60 backdrop-blur-xl p-6 shadow-[0_8px_24px_rgba(13,19,33,0.12)] hover:translate-y-[-2px] hover:shadow-[0_10px_28px_rgba(13,19,33,0.16)] transition">
-        <div class="h-12 w-12 rounded-xl bg-[#155E75]/15 text-[#155E75] flex items-center justify-center mb-4"><i class="fa-solid fa-user-tie"></i></div>
-        <h3 class="text-lg font-semibold text-[#0D1321]">Paid Expert Mentorship</h3>
-        <p class="mt-2 text-sm text-[#64748B]">Book sessions with verified mentors. Typical rates start at ₹499/hr via UPI.</p>
+      <div class="lift rounded-2xl border border-white/15 bg-white/10 backdrop-blur-xl p-6 shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
+        <div class="h-12 w-12 rounded-xl bg-cyan-500/15 text-cyan-300 flex items-center justify-center mb-4"><i class="fa-solid fa-user-tie"></i></div>
+        <h3 class="text-lg font-semibold">Paid Expert Mentorship</h3>
+        <p class="mt-2 text-sm text-white/70">Book sessions with verified mentors. Typical rates start at ₹499/hr via UPI.</p>
       </div>
-      <div class="rounded-2xl border border-white/25 bg-white/60 backdrop-blur-xl p-6 shadow-[0_8px_24px_rgba(13,19,33,0.12)] hover:translate-y-[-2px] hover:shadow-[0_10px_28px_rgba(13,19,33,0.16)] transition">
-        <div class="h-12 w-12 rounded-xl bg-[#155E75]/15 text-[#155E75] flex items-center justify-center mb-4"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
-        <h3 class="text-lg font-semibold text-[#0D1321]">AI Academic Search</h3>
-        <p class="mt-2 text-sm text-[#64748B]">Find articles, PDFs, and videos in one place. Try “java loops” in Resource Finder.</p>
+      <div class="lift rounded-2xl border border-white/15 bg-white/10 backdrop-blur-xl p-6 shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
+        <div class="h-12 w-12 rounded-xl bg-indigo-500/15 text-indigo-300 flex items-center justify-center mb-4"><i class="fa-solid fa-magnifying-glass-chart"></i></div>
+        <h3 class="text-lg font-semibold">AI Academic Search</h3>
+        <p class="mt-2 text-sm text-white/70">Find articles, PDFs, and videos in one place. Try “java loops” in Resource Finder.</p>
       </div>
-      <div class="rounded-2xl border border-white/25 bg-white/60 backdrop-blur-xl p-6 shadow-[0_8px_24px_rgba(13,19,33,0.12)] hover:translate-y-[-2px] hover:shadow-[0_10px_28px_rgba(13,19,33,0.16)] transition">
-        <div class="h-12 w-12 rounded-xl bg-[#155E75]/15 text-[#155E75] flex items-center justify-center mb-4"><i class="fa-solid fa-award"></i></div>
-        <h3 class="text-lg font-semibold text-[#0D1321]">Assignments & Badges</h3>
-        <p class="mt-2 text-sm text-[#64748B]">Solve tasks like “5 DSA problems this week” and unlock badges to become a mentor.</p>
+      <div class="lift rounded-2xl border border-white/15 bg-white/10 backdrop-blur-xl p-6 shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
+        <div class="h-12 w-12 rounded-xl bg-amber-500/15 text-amber-300 flex items-center justify-center mb-4"><i class="fa-solid fa-award"></i></div>
+        <h3 class="text-lg font-semibold">Assignments & Badges</h3>
+        <p class="mt-2 text-sm text-white/70">Solve tasks like “5 DSA problems this week” and unlock badges to become a mentor.</p>
       </div>
     </div>
   </section>
 
   <!-- How it works -->
   <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
-    <div class="rounded-2xl border border-white/25 bg-white/60 backdrop-blur-xl p-6 md:p-8 shadow-[0_8px_24px_rgba(13,19,33,0.12)]">
-      <h2 class="text-2xl md:text-3xl font-bold text-[#0D1321] text-center">How it works</h2>
+    <div class="rounded-2xl border border-white/15 bg-white/10 backdrop-blur-xl p-6 md:p-8 shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
+      <h2 class="text-2xl md:text-3xl font-bold text-center">How it works</h2>
       <div class="mt-8 grid gap-6 md:grid-cols-4">
         <div class="text-center">
-          <div class="mx-auto h-10 w-10 rounded-full bg-[#F4A300] text-[#0D1321] font-bold flex items-center justify-center">1</div>
-          <p class="mt-3 text-sm text-[#1F2937] font-semibold">Create Profile</p>
-          <p class="mt-1 text-xs text-[#64748B]">Add IIT/NIT/BITS education, skills, and goals.</p>
+          <div class="mx-auto h-10 w-10 rounded-full bg-[var(--brand)] text-[#0D1321] font-bold flex items-center justify-center">1</div>
+          <p class="mt-3 text-sm font-semibold">Create Profile</p>
+          <p class="mt-1 text-xs text-white/70">Add IIT/NIT/BITS education, skills, and goals.</p>
         </div>
         <div class="text-center">
-          <div class="mx-auto h-10 w-10 rounded-full bg-[#F4A300] text-[#0D1321] font-bold flex items-center justify-center">2</div>
-          <p class="mt-3 text-sm text-[#1F2937] font-semibold">Discover</p>
-          <p class="mt-1 text-xs text-[#64748B]">AI-curated resources & suggested connections.</p>
+          <div class="mx-auto h-10 w-10 rounded-full bg-[var(--brand)] text-[#0D1321] font-bold flex items-center justify-center">2</div>
+          <p class="mt-3 text-sm font-semibold">Discover</p>
+          <p class="mt-1 text-xs text-white/70">AI-curated resources & suggested connections.</p>
         </div>
         <div class="text-center">
-          <div class="mx-auto h-10 w-10 rounded-full bg-[#F4A300] text-[#0D1321] font-bold flex items-center justify-center">3</div>
-          <p class="mt-3 text-sm text-[#1F2937] font-semibold">Connect & Book</p>
-          <p class="mt-1 text-xs text-[#64748B]">Request peer sessions or book mentors (₹/hr).</p>
+          <div class="mx-auto h-10 w-10 rounded-full bg-[var(--brand)] text-[#0D1321] font-bold flex items-center justify-center">3</div>
+          <p class="mt-3 text-sm font-semibold">Connect & Book</p>
+          <p class="mt-1 text-xs text-white/70">Request peer sessions or book mentors (₹/hr).</p>
         </div>
         <div class="text-center">
-          <div class="mx-auto h-10 w-10 rounded-full bg-[#F4A300] text-[#0D1321] font-bold flex items-center justify-center">4</div>
-          <p class="mt-3 text-sm text-[#1F2937] font-semibold">Earn Badges</p>
-          <p class="mt-1 text-xs text-[#64748B]">Complete assignments to unlock mentor status.</p>
+          <div class="mx-auto h-10 w-10 rounded-full bg-[var(--brand)] text-[#0D1321] font-bold flex items-center justify-center">4</div>
+          <p class="mt-3 text-sm font-semibold">Earn Badges</p>
+          <p class="mt-1 text-xs text-white/70">Complete assignments to unlock mentor status.</p>
         </div>
       </div>
     </div>
@@ -131,18 +271,18 @@
 
   <!-- Testimonials -->
   <section class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6 pb-14">
-    <h2 class="text-2xl md:text-3xl font-bold text-white text-center">What learners say</h2>
+    <h2 class="text-2xl md:text-3xl font-bold text-center">What learners say</h2>
     <div class="mt-8 grid gap-6 md:grid-cols-3">
-      <div class="rounded-2xl border border-white/25 bg-white/60 backdrop-blur-xl p-6 shadow-[0_8px_24px_rgba(13,19,33,0.12)]">
+      <div class="lift rounded-2xl border border-white/15 bg-white/10 backdrop-blur-xl p-6 shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
         <div class="flex items-center gap-3">
           <img src="https://i.pravatar.cc/80?img=15" alt="Rohan Sharma avatar" class="h-12 w-12 rounded-full object-cover" />
           <div>
-            <p class="font-semibold text-[#0D1321]">Rohan Sharma</p>
-            <p class="text-xs text-[#64748B]">B.Tech, Hyderabad</p>
+            <p class="font-semibold">Rohan Sharma</p>
+            <p class="text-xs text-white/70">B.Tech, Hyderabad</p>
           </div>
         </div>
-        <p class="mt-4 text-sm text-[#1F2937]">“With AI search and mentor sessions at ₹699/hr, I solved 10 DSA mediums per week.”</p>
-        <div class="mt-3 text-[#F4A300]" aria-label="4.5 out of 5 stars">
+        <p class="mt-4 text-sm">“With AI search and mentor sessions at ₹699/hr, I solved 10 DSA mediums per week.”</p>
+        <div class="mt-3 text-[var(--brand)]" aria-label="4.5 out of 5 stars">
           <i class="fa-solid fa-star"></i>
           <i class="fa-solid fa-star"></i>
           <i class="fa-solid fa-star"></i>
@@ -150,16 +290,16 @@
           <i class="fa-solid fa-star-half-stroke"></i>
         </div>
       </div>
-      <div class="rounded-2xl border border-white/25 bg-white/60 backdrop-blur-xl p-6 shadow-[0_8px_24px_rgba(13,19,33,0.12)]">
+      <div class="lift rounded-2xl border border-white/15 bg-white/10 backdrop-blur-xl p-6 shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
         <div class="flex items-center gap-3">
           <img src="https://i.pravatar.cc/80?img=49" alt="Aisha Khan avatar" class="h-12 w-12 rounded-full object-cover" />
           <div>
-            <p class="font-semibold text-[#0D1321]">Aisha Khan</p>
-            <p class="text-xs text-[#64748B]">UPSC Aspirant, Lucknow</p>
+            <p class="font-semibold">Aisha Khan</p>
+            <p class="text-xs text-white/70">UPSC Aspirant, Lucknow</p>
           </div>
         </div>
-        <p class="mt-4 text-sm text-[#1F2937]">“Resource Finder grouped PDFs and videos perfectly. My study plan finally makes sense.”</p>
-        <div class="mt-3 text-[#F4A300]" aria-label="4 out of 5 stars">
+        <p class="mt-4 text-sm">“Resource Finder grouped PDFs and videos perfectly. My study plan finally makes sense.”</p>
+        <div class="mt-3 text-[var(--brand)]" aria-label="4 out of 5 stars">
           <i class="fa-solid fa-star"></i>
           <i class="fa-solid fa-star"></i>
           <i class="fa-solid fa-star"></i>
@@ -167,16 +307,16 @@
           <i class="fa-regular fa-star"></i>
         </div>
       </div>
-      <div class="rounded-2xl border border-white/25 bg-white/60 backdrop-blur-xl p-6 shadow-[0_8px_24px_rgba(13,19,33,0.12)]">
+      <div class="lift rounded-2xl border border-white/15 bg-white/10 backdrop-blur-xl p-6 shadow-[0_8px_24px_rgba(0,0,0,0.35)]">
         <div class="flex items-center gap-3">
           <img src="https://i.pravatar.cc/80?img=67" alt="Ananya Iyer avatar" class="h-12 w-12 rounded-full object-cover" />
           <div>
-            <p class="font-semibold text-[#0D1321]">Ananya Iyer</p>
-            <p class="text-xs text-[#64748B]">IIT Delhi</p>
+            <p class="font-semibold">Ananya Iyer</p>
+            <p class="text-xs text-white/70">IIT Delhi</p>
           </div>
         </div>
-        <p class="mt-4 text-sm text-[#1F2937]">“Booked a mentor for ML basics at ₹599/hr. Clean call room and actionable feedback.”</p>
-        <div class="mt-3 text-[#F4A300]" aria-label="5 out of 5 stars">
+        <p class="mt-4 text-sm">“Booked a mentor for ML basics at ₹599/hr. Clean call room and actionable feedback.”</p>
+        <div class="mt-3 text-[var(--brand)]" aria-label="5 out of 5 stars">
           <i class="fa-solid fa-star"></i>
           <i class="fa-solid fa-star"></i>
           <i class="fa-solid fa-star"></i>
@@ -188,12 +328,12 @@
   </section>
 
   <!-- Footer -->
-  <footer class="mt-6 border-t border-white/20 bg-white/20 backdrop-blur-xl">
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 text-white">
+  <footer class="mt-6 border-t border-white/10 bg-white/5 backdrop-blur-xl">
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10">
       <div class="grid gap-8 md:grid-cols-4">
         <div>
           <div class="flex items-center gap-3">
-            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-[#F4A300] text-[#0D1321] shadow" aria-hidden="true">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--brand)] text-[#0D1321] shadow" aria-hidden="true">
               <i class="fa-solid fa-graduation-cap"></i>
             </div>
             <span class="text-xl font-bold">SkillSync</span>

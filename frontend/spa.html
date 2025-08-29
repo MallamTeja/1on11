@@ -38,13 +38,13 @@
   <style>
     :root { --radius-xl: 12px; --radius-2xl: 16px; }
     body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Liberation Sans', sans-serif; }
-    .glass { background: rgba(255,255,255,0.6); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,0.35); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+    .glass { background: rgba(255,255,255,0.1); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
     .brand-gradient { background-image: linear-gradient(90deg, #FF8A00 0%, #FF5A1F 100%); }
     .scrollbar-thin::-webkit-scrollbar { height: 8px; width: 8px; }
-    .scrollbar-thin::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+    .scrollbar-thin::-webkit-scrollbar-thumb { background: #475569; border-radius: 9999px; }
   </style>
 </head>
-<body class="min-h-screen bg-gradient-to-br from-bgLight to-surfaceAlt text-ink">
+<body class="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white">
   <div id="root"></div>
 
   <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -68,7 +68,7 @@
     );
 
     const SecondaryButton = ({ children, className = "", ...props }) => (
-      <button {...props} className={`glass text-ink rounded-2xl px-5 py-3 border border-saffron/40 hover:border-ember/50 transition ${className}`}>
+      <button {...props} className={`glass text-white rounded-2xl px-5 py-3 border border-saffron/40 hover:border-ember/50 transition ${className}`}>
         {children}
       </button>
     );
@@ -76,13 +76,13 @@
     const StatChip = ({ label, value }) => (
       <div className="glass rounded-2xl px-4 py-2 text-sm flex items-center gap-2">
         <span className="text-subtext">{label}</span>
-        <span className="font-semibold text-ink">{value}</span>
+        <span className="font-semibold text-white">{value}</span>
       </div>
     );
 
     const SectionTitle = ({ title, subtitle }) => (
       <div className="mb-6">
-        <h2 className="text-2xl font-semibold text-ink">{title}</h2>
+        <h2 className="text-2xl font-semibold text-white">{title}</h2>
         {subtitle && <p className="text-subtext mt-1">{subtitle}</p>}
       </div>
     );
@@ -92,23 +92,23 @@
     );
 
     const Tag = ({ children }) => (
-      <span className="px-3 py-1 rounded-full bg-surfaceAlt text-ink text-xs border border-white/40">{children}</span>
+      <span className="px-3 py-1 rounded-full bg-surfaceAlt/10 text-white text-xs border border-white/20">{children}</span>
     );
 
     const NavBar = () => (
       <div className="sticky top-0 z-40">
-        <div className="glass backdrop-blur-xl border-b border-white/40">
+        <div className="glass backdrop-blur-xl border-b border-white/10">
           <Container className="py-3">
             <div className="flex items-center justify-between">
               <Link to="/" className="flex items-center gap-2">
                 <div className="h-9 w-9 rounded-xl brand-gradient"></div>
-                <span className="font-semibold text-xl text-ink">SkillSync</span>
+                <span className="font-semibold text-xl text-white">SkillSync</span>
               </Link>
               <nav className="hidden md:flex items-center gap-6">
-                <NavLink to="/" className={({isActive})=>`text-sm ${isActive ? 'text-ink font-semibold' : 'text-subtext hover:text-ink'}`}>Home</NavLink>
-                <NavLink to="/network" className={({isActive})=>`text-sm ${isActive ? 'text-ink font-semibold' : 'text-subtext hover:text-ink'}`}>Network</NavLink>
-                <NavLink to="/assignments" className={({isActive})=>`text-sm ${isActive ? 'text-ink font-semibold' : 'text-subtext hover:text-ink'}`}>Assignments</NavLink>
-                <NavLink to="/chat" className={({isActive})=>`text-sm ${isActive ? 'text-ink font-semibold' : 'text-subtext hover:text-ink'}`}>Chat</NavLink>
+                <NavLink to="/" className={({isActive})=>`text-sm ${isActive ? 'text-white font-semibold' : 'text-subtext hover:text-white'}`}>Home</NavLink>
+                <NavLink to="/network" className={({isActive})=>`text-sm ${isActive ? 'text-white font-semibold' : 'text-subtext hover:text-white'}`}>Network</NavLink>
+                <NavLink to="/assignments" className={({isActive})=>`text-sm ${isActive ? 'text-white font-semibold' : 'text-subtext hover:text-white'}`}>Assignments</NavLink>
+                <NavLink to="/chat" className={({isActive})=>`text-sm ${isActive ? 'text-white font-semibold' : 'text-subtext hover:text-white'}`}>Chat</NavLink>
               </nav>
               <div className="flex items-center gap-3">
                 <Link to="/network" className="hidden sm:block"><SecondaryButton>Explore Mentors</SecondaryButton></Link>
@@ -122,25 +122,28 @@
     );
 
     const Footer = () => (
-      <footer className="mt-16 py-10">
+      <footer className="mt-16 py-10 border-t border-white/10">
         <Container>
           <div className="grid sm:grid-cols-3 gap-8">
             <div>
               <div className="flex items-center gap-2 mb-3">
                 <div className="h-8 w-8 rounded-xl brand-gradient"></div>
-                <span className="font-semibold text-lg">SkillSync</span>
+                <span className="font-semibold text-lg text-white">SkillSync</span>
               </div>
-              <p className="text-subtext text-sm">Built for India, by India. Empowering students and professionals across IITs, NITs, IIMs and beyond.</p>
+              <p class="text-subtext text-sm">Built for India, by India. Empowering students and professionals across IITs, NITs, IIMs and beyond.</p>
             </div>
             <div>
-              <h4 className="font-semibold mb-2">Product</h4>
-              <ul className="text-sm text-subtext space-y-1">
-                <li><a href="#/dashboard" className="hover:text-ink">Dashboard</a></li>
-                <li><a href="#/network" className="hover:text-ink">Network</a></li>
-                <li><a href="#/assignments" className="hover:text-ink">Assignments</a></li>
+              <h4 class="font-semibold text-white mb-2">Product</h4>
+              <ul class="text-sm text-subtext space-y-1">
+                <li><a href="#/dashboard" class="hover:text-white">Dashboard</a></li>
+                <li><a href="#/network" class="hover:text-white">Network</a></li>
+                <li><a href="#/assignments" class="hover:text-white">Assignments</a></li>
               </ul>
             </div>
             <div>
+              <h4 class="font-semibold text-white mb-2">Legal</h4>
+              <ul class="text-sm text-subtext space-y-1">
+                <li><a href="#" class="hover:text-white">Terms</a></li>
               <h4 className="font-semibold mb-2">Legal</h4>
               <ul className="text-sm text-subtext space-y-1">
                 <li><a href="#" className="hover:text-ink">Terms</a></li>

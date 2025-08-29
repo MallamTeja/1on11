@@ -1,25 +1,14 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { config } from './config';
+import { config } from './config.js';
 
 const genAI = new GoogleGenerativeAI(config.gemini.apiKey);
 
-export interface GeminiSearchResult {
-  id: string;
-  title: string;
-  summary: string;
-  source: string;
-  type: string;
-  url: string;
-  downloadUrl?: string;
-  fileType?: 'PDF' | 'PPT' | 'DOCX';
-}
-
 /**
  * Searches for academic content using Google's Gemini AI
- * @param query The search query
- * @returns Promise with search results
+ * @param {string} query The search query
+ * @returns {Promise<Array<{id: string, title: string, summary: string, source: string, type: string, url: string, downloadUrl?: string, fileType?: 'PDF'|'PPT'|'DOCX'}>>}
  */
-export async function searchWithGemini(query: string): Promise<GeminiSearchResult[]> {
+export async function searchWithGemini(query) {
   if (!config.gemini.apiKey) {
     throw new Error('Gemini API key is not configured.');
   }
@@ -51,7 +40,7 @@ You are an academic search assistant. For the query: "${query}", generate a JSON
     const jsonText = jsonMatch[1].trim();
     const parsed = JSON.parse(jsonText);
 
-    return parsed.map((item: GeminiSearchResult, i: number) => ({
+    return parsed.map((item, i) => ({
       ...item,
       id: item.id || `${i + 1}`,
     }));

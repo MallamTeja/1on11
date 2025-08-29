@@ -1,48 +1,11 @@
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { config } from './config';
-import { SearchResult } from './types';
+import { config } from './config.js';
 
-interface SerperResponse {
-  organic: {
-    position: number;
-    title: string;
-    link: string;
-    snippet: string;
-    date?: string;
-    sitelinks?: { title: string; link: string }[];
-  }[];
-  knowledgeGraph?: {
-    title: string;
-    type: string;
-    description?: string;
-  };
-  peopleAlsoAsk?: {
-    question: string;
-    snippet: string;
-    title: string;
-    link: string;
-  }[];
-  videos?: {
-    title: string;
-    link: string;
-    thumbnail: string;
-    channel?: string;
-    date?: string;
-    description?: string; // Changed from snippet to description for YouTube API
-  }[];
-  images?: {
-    title: string;
-    imageUrl: string;
-    link: string;
-    source: string;
-  }[];
-}
-
-function generateUniqueId(): string {
+function generateUniqueId() {
   return Math.random().toString(36).substring(2, 11);
 }
 
-function getResultType(url: string): SearchResult['type'] {
+function getResultType(url) {
   const lowerUrl = url.toLowerCase();
 
   if (lowerUrl.endsWith('.pdf')) return 'pdf';
@@ -65,9 +28,9 @@ function getResultType(url: string): SearchResult['type'] {
   return 'article';
 }
 
-async function generateSummary(title: string, snippet?: string, link?: string): Promise<string> {
+async function generateSummary(title, snippet, link) {
   if (!config.gemini.apiKey) {
-    return snippet || ''; // Fallback to snippet if API key is missing
+    return snippet || '';
   }
   const genAI = new GoogleGenerativeAI(config.gemini.apiKey);
   const model = genAI.getGenerativeModel({ model: 'gemini-pro' });
@@ -83,14 +46,13 @@ ${link ? `URL: ${link}` : ''}`;
     return response.text();
   } catch (error) {
     console.error('Error generating summary with Gemini:', error);
-    return snippet || ''; // Fallback to snippet on error
+    return snippet || '';
   }
 }
 
-async function mapSerperToSearchResults(data: SerperResponse, query: string, difficulty?: string): Promise<SearchResult[]> {
-  const results: SearchResult[] = [];
+async function mapSerperToSearchResults(data, query, difficulty) {
+  const results = [];
 
-  // Map organic results
   if (Array.isArray(data.organic)) {
     data.organic.forEach((result) => {
       const type = getResultType(result.link);
@@ -104,7 +66,6 @@ async function mapSerperToSearchResults(data: SerperResponse, query: string, dif
         year: result.date ? new Date(result.date).getFullYear() : undefined,
       });
 
-      // Add sitelinks as separate results if present
       if (result.sitelinks && result.sitelinks.length > 0) {
         result.sitelinks.forEach((sitelink) => {
           results.push({
@@ -120,7 +81,6 @@ async function mapSerperToSearchResults(data: SerperResponse, query: string, dif
     });
   }
 
-  // Map knowledge graph result if present
   if (data.knowledgeGraph) {
     results.push({
       id: generateUniqueId(),
@@ -132,7 +92,6 @@ async function mapSerperToSearchResults(data: SerperResponse, query: string, dif
     });
   }
 
-  // Map people also ask questions
   if (Array.isArray(data.peopleAlsoAsk)) {
     data.peopleAlsoAsk.forEach((qa) => {
       results.push({
@@ -145,8 +104,7 @@ async function mapSerperToSearchResults(data: SerperResponse, query: string, dif
       });
     });
   }
-  
-  // Map video results (now using YouTube API data if available, or Serper's video results as fallback)
+
   if (Array.isArray(data.videos)) {
     for (const video of data.videos) {
       const summary = await generateSummary(video.title, video.description, video.link);
@@ -161,8 +119,7 @@ async function mapSerperToSearchResults(data: SerperResponse, query: string, dif
       });
     }
   }
-  
-  // Map image results
+
   if (Array.isArray(data.images)) {
     data.images.forEach((image) => {
       results.push({
@@ -179,28 +136,25 @@ async function mapSerperToSearchResults(data: SerperResponse, query: string, dif
   return results;
 }
 
-export async function searchWithSerper(query: string, type?: string, difficulty?: string): Promise<SearchResult[]> {
+export async function searchWithSerper(query, type, difficulty) {
   if (!config.serper.apiKey) {
     throw new Error('Serper API key is not configured.');
   }
 
   try {
-    // Determine which Serper endpoint to use based on the type
     let endpoint = 'https://google.serper.dev/search';
     let useYouTubeAPI = false;
 
     if (type === 'image') {
       endpoint = 'https://google.serper.dev/images';
     } else if (type === 'video' || type === 'youtube') {
-      // Prioritize YouTube API for video searches
       if (config.youtube.apiKey) {
         useYouTubeAPI = true;
       } else {
-        endpoint = 'https://google.serper.dev/videos'; // Fallback to Serper videos if no YouTube key
+        endpoint = 'https://google.serper.dev/videos';
       }
     }
 
-    // Add specific search terms based on the type
     let searchQuery = query;
     if (difficulty && difficulty !== 'all') {
       searchQuery = `${query} ${difficulty} level`;
@@ -214,26 +168,34 @@ export async function searchWithSerper(query: string, type?: string, difficulty?
       searchQuery = `${searchQuery} filetype:doc OR filetype:docx`;
     }
 
-    let data: SerperResponse;
+    let data;
 
     if (useYouTubeAPI) {
-      // YouTube API call
       const youtubeResponse = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&q=${encodeURIComponent(searchQuery)}&type=video&key=${config.youtube.apiKey}&maxResults=10`);
       if (!youtubeResponse.ok) {
         throw new Error(`YouTube API error: ${youtubeResponse.status}`);
       }
+
       const youtubeData = await youtubeResponse.json();
-      // Transform YouTube API response to SerperResponse.videos format
-      data = { organic: [], videos: youtubeData.items?.map((item: any) => ({
+
+      const videos = (youtubeData.items || []).map((item) => ({
         title: item.snippet.title,
         link: `https://www.youtube.com/watch?v=${item.id.videoId}`,
-        thumbnail: item.snippet.thumbnails.default.url,
+        thumbnail: item.snippet.thumbnails?.default?.url || '',
         channel: item.snippet.channelTitle,
         date: item.snippet.publishedAt,
         description: item.snippet.description,
-      })) || [] };
+      }));
+
+      const response = {
+        organic: [],
+        videos: videos,
+        knowledgeGraph: undefined,
+        peopleAlsoAsk: [],
+        images: []
+      };
+      data = response;
     } else {
-      // Serper API call
       const serperResponse = await fetch(endpoint, {
         method: 'POST',
         headers: {
@@ -242,7 +204,6 @@ export async function searchWithSerper(query: string, type?: string, difficulty?
         },
         body: JSON.stringify({
           q: searchQuery,
-          // India-first geolocation & language
           gl: 'in',
           hl: 'en',
         }),
