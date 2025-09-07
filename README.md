@@ -1,7 +1,7 @@
 # SkillSync Education Platform
 
 SkillSync is a modern education platform built with HTML, CSS, and JavaScript that provides an interactive learning experience for coding skills, mentorship, and collaborative study groups.
-figma UIUX = https://www.figma.com/make/4dfxqQalPFqUnMfN49vI2z/Mentorship---Coding-Platform?node-id=0-1&p=f&t=E5w7CaNygCIcFMjN-0
+## figma UIUX = https://www.figma.com/make/4dfxqQalPFqUnMfN49vI2z/Mentorship---Coding-Platform?node-id=0-1&p=f&t=E5w7CaNygCIcFMjN-0
 
 ## Project Structure
 
