@@ -1,0 +1,1 @@
+globalThis.__RSC_MANIFEST=(globalThis.__RSC_MANIFEST||{});globalThis.__RSC_MANIFEST["/_not-found"]={"moduleLoading":{"prefix":"/_next/","crossOrigin":null},"ssrModuleMapping":{},"edgeSSRModuleMapping":{},"clientModules":{},"entryCSSFiles":{"C:\\Users\\L470\\OneDrive\\myproj\\1on1 2222\\1on1\\app\\not-found":[]}}
