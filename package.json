@@ -4,12 +4,12 @@
   "description": "SkillSync - Academic and Mentorship Platform for India",
   "main": "src/index.js",
   "scripts": {
-    "start": "node frontend/server.js",
+    "start": "cd frontend && npm start",
     "server": "cd backend && npm run dev",
-    "client": "node frontend/server.js",
+    "client": "cd frontend && npm start",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "install-all": "npm install && cd backend && npm install",
-    "build": "cd backend && npm run build"
+    "install-all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "build": "cd frontend && npm run build && cd ../backend && npm run build"
   },
   "keywords": [
     "education",
@@ -23,16 +23,19 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.18.2",
+    "framer-motion": "^10.0.0",
+    "lucide-react": "^0.263.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.0",
-    "react-scripts": "5.0.1",
-    "framer-motion": "^10.0.0",
-    "lucide-react": "^0.263.0"
+    "react-scripts": "5.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0"
+    "@types/react-dom": "^18.0.0",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.13"
   },
   "browserslist": {
     "production": [
