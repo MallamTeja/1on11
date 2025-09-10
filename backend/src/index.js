@@ -3,6 +3,7 @@ import cors from 'cors';
 import './config.js'; // loads environment variables
 import { searchWithSerper } from './serper-service.js';
 import { searchWithGemini } from './gemini-service.js';
+import { searchScholar } from './scholar-service.js';
 
 const app = express();
 
@@ -49,7 +50,33 @@ app.get('/', (_req, res) => {
 });
 
 app.get('/api/health', (_req, res) => {
-  res.json({ status: 'ok' });
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
+// Scholar search endpoint
+app.post('/api/scholar', async (req, res) => {
+  try {
+    const { query, ...options } = req.body;
+    
+    if (!query) {
+      return res.status(400).json({ error: 'Query parameter is required' });
+    }
+
+    const results = await searchScholar(query, options);
+    res.json({
+      success: true,
+      query,
+      results,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('Scholar search error:', error);
+    res.status(500).json({
+      success: false,
+      error: error.message || 'Failed to perform scholar search',
+      timestamp: new Date().toISOString()
+    });
+  }
 });
 
 // Resource Finder API
