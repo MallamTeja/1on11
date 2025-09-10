@@ -63,27 +63,25 @@ function extractCitationCount(citationInfo) {
  *  - type: 'scholarly_article'
  *  - relevance: numeric relevance score (default 0.9)
  */
-function mapScholarResults(data, query) {
-  if (!data || !data.organic || !Array.isArray(data.organic)) {
-    return [];
-  }
+const mapScholarResults = (data) => {
+  if (!data?.organic?.length) return [];
 
   return data.organic.map((item) => ({
     id: generateScholarId(),
     title: item.title || 'No title available',
     link: item.link || '#',
     snippet: item.snippet || '',
-    authors: item.authors || [],
+    authors: Array.isArray(item.authors) ? item.authors : [],
     publicationInfo: item.cite?.name || '',
     year: extractYear(item.cite?.name || ''),
     citationCount: extractCitationCount(item.citationCount),
-    pdfLink: item.pdfLink || null,
+    pdfLink: item.link?.endsWith('.pdf') ? item.link : null,
     isFreeAccess: item.isFreeAccess || false,
     source: 'scholar',
     type: 'scholarly_article',
-    relevance: 0.9, // Default relevance score
+    relevance: 0.9,
   }));
-}
+};
 
 /**
  * Search scholarly results via the Serper Scholar API and return normalized results.
