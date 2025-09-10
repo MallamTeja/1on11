@@ -76,7 +76,8 @@ app.get('/login', (req, res) => {
         return res.redirect('/dashboard');
     }
     res.render('login', { 
-        user: null,
+        user: null, 
+        title: 'Login - SkillExchange',
         error: null 
     });
 });
